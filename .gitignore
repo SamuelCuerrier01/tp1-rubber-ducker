@@ -1,0 +1,13 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Mac OS junk files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows junk files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
