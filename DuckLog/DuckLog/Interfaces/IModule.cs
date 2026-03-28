@@ -3,11 +3,15 @@ using Android.Accessibilityservice.AccessibilityService;
 
 namespace DuckLog.Models;
 
-public interface IModule
+public abstract class IModule
 {
-    int Id { get; }
+    public int Id { get; }
     ObservableCollection<ITask> Tasks { get; set; }
 
+    public IModule()
+    {
+        Id = Data.Data.GetIdModule;
+    }
     public void AddTask(ITask task)
     {
         if (!(Tasks.Any(x => x.Id == task.Id)))

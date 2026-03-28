@@ -8,6 +8,9 @@ public static class Data
     
     public static Dictionary<int, IModule> GetModules => _modules;
 
+    private static int _idTask = 1;
+    private static int _idModule = 1;
+
     public static void AddModule(IModule module)
     {
         if (!_modules.ContainsKey(module.Id))
@@ -25,4 +28,7 @@ public static class Data
     {
         _modules[module.Id] = module;
     }
+
+    public static int GetIdTask => _idTask++;
+    public static int GetIdModule => _idModule++;
 }
