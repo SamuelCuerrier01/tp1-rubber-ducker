@@ -1,16 +1,20 @@
 using System.Collections.ObjectModel;
-using Android.Accessibilityservice.AccessibilityService;
 
 namespace DuckLog.Models;
 
 public abstract class IModule
 {
     public int Id { get; }
-    ObservableCollection<ITask> Tasks { get; set; }
+    private ObservableCollection<ITask> Tasks { get; set; } = new ObservableCollection<ITask>();
 
     public IModule()
     {
         Id = Data.Data.GetIdModule;
+    }
+
+    public ObservableCollection<ITask> GetTasks()
+    {
+        return Tasks;
     }
     public void AddTask(ITask task)
     {
