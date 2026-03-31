@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">DuckLog</string>
-    <string name="app_text">Hello, Android!</string>
+    
+    <!--Modules Strings-->
+    <string name="module_page_header">My Modules</string>
+    <string name="new_module_header">Create New Module</string>
+    <string name="progress_bar_percentage">TO DO</string>
+    <string name="module_name_header">Module name</string>
+    <string name="module_name_hint">Studies</string>
+    <string name="module_description_header">Description</string>
+    <string name="module_description_hint">Module for my studies in Programming</string>
+    <string name="create_module_button">CREATE MODULE</string>
 </resources>

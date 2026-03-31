@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using DuckLog.Models;
 using TaskStatus = System.Threading.Tasks.TaskStatus;
-namespace DuckLog.Modeles;
+namespace DuckLog.Models;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
