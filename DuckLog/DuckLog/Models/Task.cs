@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 public partial class Task : ObservableObject, ITask
 {
+    private static int _next_id = 1;
     [ObservableProperty]
     private int _id;
 
@@ -28,6 +29,16 @@ public partial class Task : ObservableObject, ITask
     [ObservableProperty] private ObservableCollection<ITask> _subTasks = new ObservableCollection<ITask>();
 
     public Task(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
+    {
+        _id = _next_id++;
+        _name = name;
+        _description = description;
+        _endDate = endDate;
+        _startDate = startDate;
+        _status = status;
+    }
+
+    public void Edit(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
     {
         _name = name;
         _description = description;

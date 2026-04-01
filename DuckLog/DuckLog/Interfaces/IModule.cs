@@ -18,14 +18,6 @@ public abstract class IModule
     }
     public void AddTask(ITask task)
     {
-        if (!(Tasks.Any(x => x.Id == task.Id)))
-        {
-            Tasks.Add(task);
-        }
-        else
-        {
-            Tasks.Remove(Tasks.First(x => x.Id == task.Id));
-            Tasks.Add(task);
-        }
+        Tasks.Add(task);
     }
 }
