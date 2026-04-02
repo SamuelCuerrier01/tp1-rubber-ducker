@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace DuckLog.Models;
 
-public interface ITask
+public interface ITask : INotifyPropertyChanged
 
 {
     int Id { get; set; }
