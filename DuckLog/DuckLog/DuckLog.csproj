@@ -18,4 +18,9 @@
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
       <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.3" />
     </ItemGroup>
+    <ItemGroup>
+      <AndroidResource Update="Resources\drawable\generate_btn.png">
+        <SubType>Designer</SubType>
+      </AndroidResource>
+    </ItemGroup>
 </Project>

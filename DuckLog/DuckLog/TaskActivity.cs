@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using DuckLog;
+using DuckLog.Api;
 using DuckLog.Models;
 
 namespace DuckLog
@@ -31,6 +32,7 @@ namespace DuckLog
 
             //return button
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+            ImageButton btnGenerate = FindViewById<ImageButton>(Resource.Id.btnGenerate);
             
             //list of created tasks
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
@@ -43,14 +45,21 @@ namespace DuckLog
                 intent.PutExtra("moduleId", module.Id);
                 StartActivity(intent);
             };
-
-            if (btnReturn != null)
+            btnReturn.Click += (sender, e) =>
             {
-                btnReturn.Click += (sender, e) =>
+                Finish();
+            };
+            btnGenerate.Click += async (sender, e) =>
+            {
+                Toast.MakeText(this, "Generating task", ToastLength.Short).Show();
+
+                await System.Threading.Tasks.Task.Run(() => ApiRequest.Run(module));
+
+                RunOnUiThread(() =>
                 {
-                    Finish();
-                };
-            }
+                    ReloadTasks();
+                });
+            };
 
             if (btnAddTaskArea != null)
             {
@@ -71,15 +80,7 @@ namespace DuckLog
 
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
 
-            while (taskListContainer.ChildCount > 1)
-            {
-                taskListContainer.RemoveViewAt(0);
-            }
-
-            foreach (var task in module.GetTasks())
-            {
-                LoadTaskCardUI(taskListContainer, task);
-            }
+            ReloadTasks();
         }
 
         private void LoadTaskCardUI(LinearLayout container, ITask task)
@@ -110,5 +111,22 @@ namespace DuckLog
                 StartActivity(intent);
             };
         }
+        
+        private void ReloadTasks()
+        {
+            LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
+
+            while (taskListContainer.ChildCount > 1)
+            {
+                taskListContainer.RemoveViewAt(0);
+            }
+
+            foreach (var task in module.GetTasks())
+            {
+                LoadTaskCardUI(taskListContainer, task);
+            }
+        }
     }
+    
+    
 }
