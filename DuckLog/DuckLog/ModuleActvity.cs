@@ -63,12 +63,11 @@ namespace DuckLog
             
             foreach (var module in FakeModuleDatabase.MyModules)
             {
-                // Notice we are just passing 'module' now!
                 LoadModuleCardUI(moduleListContainer, module); 
             }
         }
 
-        private void LoadModuleCardUI(LinearLayout container, ModuleDemo module)
+        private void LoadModuleCardUI(LinearLayout container, Module module)
         {
             //Inflater for XML
             View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);

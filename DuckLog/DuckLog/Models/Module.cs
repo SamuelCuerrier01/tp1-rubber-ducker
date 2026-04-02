@@ -3,7 +3,7 @@ using DuckLog.Models;
 
 namespace DuckLog.Models;
 
-public class ModuleDemo : IModule
+public class Module : IModule
 {
     public string Name { get; set; } = "";
     public string Description { get; set; } = "";
@@ -11,7 +11,7 @@ public class ModuleDemo : IModule
     public int TotalTasks => GetTasks().Count;
     public int CompletedTasks => GetTasks().Count(task => task.Status == TaskStatus.Done);
     
-    public ModuleDemo(string name, string description) : base()
+    public Module(int id, string name, string description) : base(id)
     {
         Name = name;
         Description = description;

@@ -7,9 +7,9 @@ public abstract class IModule
     public int Id { get; }
     private ObservableCollection<ITask> Tasks { get; set; } = new ObservableCollection<ITask>();
 
-    public IModule()
+    public IModule(int id)
     {
-        Id = Data.Data.GetIdModule;
+        Id = id;
     }
 
     public ObservableCollection<ITask> GetTasks()

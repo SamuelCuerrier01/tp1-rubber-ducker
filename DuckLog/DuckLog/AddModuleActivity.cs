@@ -1,4 +1,7 @@
 using DuckLog.Models;
+using Android.App;
+using Android.OS;
+using Android.Widget;
 
 namespace DuckLog;
 
@@ -31,6 +34,7 @@ public class AddModuleActivity : Activity
         {
             string newName = editName?.Text ?? "";
             string newDesc = editDesc?.Text ?? "";
+            int newId = Data.Data.GetIdModule;
         
             if (string.IsNullOrWhiteSpace(newName))
             {
@@ -40,7 +44,8 @@ public class AddModuleActivity : Activity
         
             //TODO: integration with database
             
-            ModuleDemo newModule = new ModuleDemo(newName, newDesc);
+            
+            Module newModule = new Module(newId, newName, newDesc);
             FakeModuleDatabase.MyModules.Add(newModule);
     
             Finish();
