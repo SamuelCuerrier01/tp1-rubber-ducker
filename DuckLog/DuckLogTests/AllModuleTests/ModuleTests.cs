@@ -10,7 +10,7 @@ public class ModuleTests
         var name = "test name";
         var description = "test description";
         
-        var module = new Module (1, name, description);
+        var module = new Module (name, description);
         
         Assert.Equal("test name", module.Name);
         Assert.Equal("test description", module.Description);
@@ -22,7 +22,7 @@ public class ModuleTests
         var name = "test name";
         var description = "test description";
         
-        var module = new Module(1, name, description);
+        var module = new Module(name, description);
         
         Assert.Equal(0, module.TotalTasks);
     }

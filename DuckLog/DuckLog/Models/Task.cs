@@ -77,11 +77,11 @@ namespace DuckLog.Models
         
         public void Edit(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
         {
-            _name = name;
-            _description = description;
-            _endDate = endDate;
-            _startDate = startDate;
-            _status = status;
+            Name = name;
+            Description = description;
+            EndDate = endDate;
+            StartDate = startDate;
+            Status = status;
         }
     }
 }
