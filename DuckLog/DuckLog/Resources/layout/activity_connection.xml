@@ -57,9 +57,11 @@
             android:ems="10"
             android:id="@+id/password_field"/>
     <Button
-            android:text="Button"
+            android:text="@string/connection_button"
             android:layout_width="300px"
             android:layout_gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/primary_orange"
             android:layout_height="48dp" android:id="@+id/connection_button"/>
     <Space
             android:layout_width="match_parent"
