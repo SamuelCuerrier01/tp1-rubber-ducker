@@ -10,4 +10,7 @@
     <string name="module_description_header">Description</string>
     <string name="module_description_hint">Module for my studies in Programming</string>
     <string name="create_module_button">CREATE MODULE</string>
+    <string name="title_connection">Connection</string>
+    <string name="password_title">Password:</string>
+    <string name="email_title">Email:</string>
 </resources>

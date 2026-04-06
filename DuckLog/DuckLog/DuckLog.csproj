@@ -15,7 +15,9 @@
         <TrimMode>full</TrimMode>
     </PropertyGroup>
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+      <PackageReference Include="MySqlConnector" Version="2.5.0" />
       <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.3" />
     </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ namespace DuckLog.Models;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 
-public partial class Task : ObservableObject, ITask
+public partial class  Task : ObservableObject, ITask
 {
     [ObservableProperty]
     private int _id;
