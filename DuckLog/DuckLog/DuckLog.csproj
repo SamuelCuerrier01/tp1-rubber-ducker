@@ -27,6 +27,9 @@
     <Compile Remove="AddModuleActivity.cs" />
     <Compile Remove="ModuleActvity.cs" />
     <Compile Remove="MainActivity.cs" />
+    <Compile Remove="AddTaskActivity.cs" />
+    <Compile Remove="EditTaskActivity.cs" />
+    <Compile Remove="TaskActivity.cs" />
 </ItemGroup>
 
     <ItemGroup>

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -77,6 +78,8 @@ namespace DuckLog
         /// <param name="module">Module à afficher.</param>
         private void LoadModuleCardUI(LinearLayout container, Module module)
         {
+            LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
+            //Inflater for XML
             View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);
             
             TextView txtName = moduleCard.FindViewById<TextView>(Resource.Id.txtModuleName);
@@ -101,6 +104,13 @@ namespace DuckLog
 
             int insertIndex = container.ChildCount - 1;
             container.AddView(moduleCard, insertIndex);
+            
+            moduleCard.Click += (sender, e) =>
+            {
+                Intent intent = new Intent(this, typeof(TaskActivity));
+                intent.PutExtra("moduleId", module.Id);
+                StartActivity(intent);
+            };
         }
     }
 }

@@ -37,4 +37,6 @@ public interface ITask : INotifyPropertyChanged
     /// Subtasks collection.
     /// </summary>
     ObservableCollection<ITask> SubTasks { get; set; }
+
+    public void Edit(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status);
 }

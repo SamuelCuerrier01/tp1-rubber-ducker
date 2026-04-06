@@ -49,7 +49,7 @@ namespace DuckLog
                     }
 
 
-                    Module newModule = new Module(newId, newName, newDesc);
+                    Module newModule = new Module(newName, newDesc);
                     FakeModuleDatabase.MyModules.Add(newModule);
 
                     Finish();

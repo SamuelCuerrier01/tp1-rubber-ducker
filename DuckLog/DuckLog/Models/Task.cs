@@ -10,6 +10,12 @@ namespace DuckLog.Models
     public partial class Task : ObservableObject, ITask
     {
         /// <summary>
+        /// Generer le prochain identifiant pour tâche.
+        /// </summary>
+        [ObservableProperty]
+        private static int _next_id = 1;
+        
+        /// <summary>
         /// Identifiant unique de la tâche.
         /// </summary>
         [ObservableProperty]
@@ -60,6 +66,16 @@ namespace DuckLog.Models
         /// <param name="startDate">Date de début.</param>
         /// <param name="status">Statut initial de la tâche.</param>
         public Task(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
+        {
+            _id = _next_id++;
+            _name = name;
+            _description = description;
+            _endDate = endDate;
+            _startDate = startDate;
+            _status = status;
+        }
+        
+        public void Edit(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
         {
             _name = name;
             _description = description;

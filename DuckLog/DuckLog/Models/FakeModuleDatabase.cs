@@ -1,16 +1,39 @@
-using System.Collections.ObjectModel;
+namespace DuckLog.Models;
 
-namespace DuckLog.Models
+/// <summary>
+/// Représente une base de données factice contenant des modules pour les tests ou le développement.
+/// </summary>
+public static class FakeModuleDatabase
 {
     /// <summary>
-    /// Représente une base de données factice contenant des modules pour les tests ou le développement.
+    /// Collection des modules disponibles dans la base de données fictive.
     /// </summary>
-    public static class FakeModuleDatabase
+    public static List<Module> MyModules { get; set; } = new List<Module>();
+
+    public static Module GetModuleById(int id)
     {
-        /// <summary>
-        /// Collection observable des modules disponibles dans la base de données factice.
-        /// Cette collection peut être utilisée pour la liaison de données dans l'interface utilisateur.
-        /// </summary>
-        public static ObservableCollection<Module> MyModules { get; set; } = new ObservableCollection<Module>();
+        foreach (var module in MyModules)
+        {
+            if (id == module.Id)
+            {
+                return module;
+            }
+        }
+        return null;
+    }
+    
+    public static ITask GetTaskById(int id)
+    {
+        foreach (var module in MyModules)
+        {
+            foreach (var task in module.GetTasks())
+            {
+                if (task.Id == id)
+                {
+                    return task;
+                }
+            }
+        }
+        return null;
     }
 }

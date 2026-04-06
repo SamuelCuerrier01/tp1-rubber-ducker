@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using DuckLog.Models;
 
 namespace DuckLog.Models;
 
@@ -7,10 +8,22 @@ namespace DuckLog.Models;
 /// </summary>
 public abstract class IModule
 {
+    private static int _next_id = 1;
+
     /// <summary>
     /// Gets the module identifier.
     /// </summary>
-    public int Id { get; }
+    public int Id { get; private set; }
+
+    /// <summary>
+    /// Gets or sets the module name.
+    /// </summary>
+    public string Name { get; set; } = "";
+
+    /// <summary>
+    /// Gets or sets the module description.
+    /// </summary>
+    public string Description { get; set; } = "";
 
     /// <summary>
     /// Collection of tasks associated with the module.
@@ -18,37 +31,37 @@ public abstract class IModule
     private ObservableCollection<ITask> Tasks { get; set; } = new ObservableCollection<ITask>();
 
     /// <summary>
-    /// Initializes a new module instance.
+    /// Gets the total number of tasks in the module.
     /// </summary>
-    /// <param name="id">Module identifier.</param>
-    public IModule(int id)
+    public int TotalTasks => GetTasks().Count;
+
+    /// <summary>
+    /// Gets the number of completed tasks in the module.
+    /// </summary>
+    public int CompletedTasks => GetTasks().Count(task => task.Status == TaskStatus.Done);
+
+    /// <summary>
+    /// Initializes a new module instance with an auto-generated identifier.
+    /// </summary>
+    public IModule()
     {
-        Id = id;
+        Id = _next_id++;
     }
 
     /// <summary>
     /// Returns the tasks of the module.
     /// </summary>
-    /// <returns>Collection of tasks.</returns>
     public ObservableCollection<ITask> GetTasks()
     {
         return Tasks;
     }
 
     /// <summary>
-    /// Adds a task or replaces it if it already exists.
+    /// Adds a task to the module.
     /// </summary>
     /// <param name="task">Task to add.</param>
     public void AddTask(ITask task)
     {
-        if (!(Tasks.Any(x => x.Id == task.Id)))
-        {
-            Tasks.Add(task);
-        }
-        else
-        {
-            Tasks.Remove(Tasks.First(x => x.Id == task.Id));
-            Tasks.Add(task);
-        }
+        Tasks.Add(task);
     }
 }
