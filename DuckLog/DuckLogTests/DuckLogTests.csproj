@@ -28,4 +28,8 @@
       <ProjectReference Include="..\DuckLog\DuckLog.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="TestResults\" />
+    </ItemGroup>
+
 </Project>

@@ -21,7 +21,7 @@ namespace DuckLog
         /// Initialise les boutons et la vue principale.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);

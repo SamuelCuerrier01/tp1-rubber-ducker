@@ -24,7 +24,7 @@ namespace DuckLog
         /// Initialise les champs de formulaire, les boutons et le spinner de statut.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             int moduleId = Intent.GetIntExtra("moduleId", 0);
             _module = FakeModuleDatabase.GetModuleById(moduleId);

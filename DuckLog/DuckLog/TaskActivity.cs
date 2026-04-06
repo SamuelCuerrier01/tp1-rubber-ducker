@@ -8,7 +8,7 @@ namespace DuckLog
     /// Activité affichant la liste des tâches d'un module.
     /// Permet de naviguer vers l'ajout ou l'édition de tâches.
     /// </summary>
-    [Activity(MainLauncher = true)]
+    [Activity]
     public class TaskActivity : Activity
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace DuckLog
         /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             int moduleId = Intent.GetIntExtra("moduleId", 0);
             module = FakeModuleDatabase.GetModuleById(moduleId);
