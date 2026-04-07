@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckLog", "DuckLog\DuckLog.csproj", "{AF68B827-D0EA-4730-9736-6480636BAC5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckLogTests", "DuckLogTests\DuckLogTests.csproj", "{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF68B827-D0EA-4730-9736-6480636BAC5A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
