@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:ems="10"
-            android:id="@+id/email_fieldt"/>
+            android:id="@+id/email_field"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
