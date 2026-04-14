@@ -8,5 +8,5 @@ public interface IUser
     public static User? CurrentUser { get; private set; }
     public string PasswordHash { get; set; }
 
-    public void ConnectUser(string inputEmail, string inputPassword);
+    void ConnectUser(string inputEmail, string inputPassword);
 }
