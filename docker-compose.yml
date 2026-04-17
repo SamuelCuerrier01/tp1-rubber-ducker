@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    container_name: ducklog_backend_api
+    working_dir: /app
+    volumes:
+      - ./src/BackendApi:/app
+    ports:
+      - "5050:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Host=db;Database=BDuckDB;Username=devuser;Password=devpassword
+    command: dotnet watch run --project BackendApi.csproj --no-launch-profile
+
+  db:
+    image: postgres:15-alpine
+    container_name: ducklog_postgres_db
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: BDuckDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
