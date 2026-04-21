@@ -1,12 +1,12 @@
 CREATE OR REPLACE DATABASE BDuckDB;
 USE BDuckDB;
 
-CREATE OR REPLACE TABLE user (
+CREATE OR REPLACE TABLE app_user (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL  
+  password_hash VARCHAR(255) NOT NULL
 );
 
-INSERT IGNORE INTO user (name, email, password) 
+INSERT IGNORE INTO app_user (name, email, password)
 VALUES ('admin', 'admin@admin.com', 'admin');

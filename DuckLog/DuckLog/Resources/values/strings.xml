@@ -25,4 +25,9 @@
     <string name="edit_task_button">Edit task</string>
     <string name="txt_task_start_date">Start date</string>
     <string name="txt_task_end_date">End date</string>
+     <string name="title_connection">Connection</string>
+    <string name="password_title">Password:</string>
+    <string name="email_title">Email:</string>
+    <string name="connection_button">Connect</string>
+
 </resources>
