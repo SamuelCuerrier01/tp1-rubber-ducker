@@ -19,5 +19,5 @@ namespace DuckLog.Models
         /// La tâche est terminée.
         /// </summary>
         Done
-  
+    }
 }

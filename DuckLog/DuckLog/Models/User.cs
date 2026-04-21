@@ -11,6 +11,14 @@ public class User : IUser
     public static User? CurrentUser { get; private set; }
     public string PasswordHash { get; set; } = string.Empty;
 
+    public User(string Name, string Email, string Password)
+    {
+        //Get id from BD
+        this.Name = Name;
+        this.Email = Email;
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password);
+    }
+
     public void ConnectUser(string inputEmail, string inputPassword)
     {
         User? userFromDb = GetUserInDB(inputEmail);

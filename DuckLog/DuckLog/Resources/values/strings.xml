@@ -25,9 +25,18 @@
     <string name="edit_task_button">Edit task</string>
     <string name="txt_task_start_date">Start date</string>
     <string name="txt_task_end_date">End date</string>
+    
+    <!--Connection-->
      <string name="title_connection">Connection</string>
-    <string name="password_title">Password:</string>
-    <string name="email_title">Email:</string>
+    <string name="password_title">Password :</string>
+    <string name="email_title">Email :</string>
     <string name="connection_button">Connect</string>
+    
+    <!--Inscription-->
+    <string name="title_inscription">Inscription</string>
+    <string name="title_nom">Nom :</string>
+    <string name="title_motDePasse">Mot de passe :</string>
+    <string name="motDePasse_confirmation">Confirmation du mot de passe :</string>
+    <string name="inscription_button">S'inscrire !</string>
 
 </resources>
