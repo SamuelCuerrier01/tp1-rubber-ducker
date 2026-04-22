@@ -4,7 +4,7 @@ using DuckLog.Data;
 namespace DuckLog;
 
 [Activity(Label = "Connexion")]
-public class ConnectionActivity : Activity
+class ConnectionActivity : Activity
 {
     protected override void OnCreate(Bundle? savedInstanceState)
     {
