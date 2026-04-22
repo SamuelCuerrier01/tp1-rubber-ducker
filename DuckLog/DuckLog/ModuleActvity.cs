@@ -1,5 +1,5 @@
 using System.Text.Json;
-using System.Net.Http.Json; // REQUIRED for GetFromJsonAsync
+using System.Net.Http.Json;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -13,12 +13,12 @@ namespace DuckLog
     [Activity(MainLauncher = true)]
     public class ModuleActvity : Activity
     {
-        // 1. Create the HttpClient for network requests
+        // Create http client for network requests
         private static readonly HttpClient _httpClient = new HttpClient();
 
-        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
-            // 2. Point the client to your Docker network alias
+            // Set up client
             if (_httpClient.BaseAddress == null)
             {
                 _httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
@@ -46,14 +46,13 @@ namespace DuckLog
             }
         }
 
-        // 3. Make this async so it can wait for the Docker response
+        // Async so it can wait for Docker 
         protected override async void OnResume()
         {
             base.OnResume();
 
             LinearLayout moduleListContainer = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
-
-            // Clear the existing UI cards (except the "Add" button if it's the first element)
+            
             while (moduleListContainer.ChildCount > 1)
             {
                 moduleListContainer.RemoveViewAt(0);
@@ -61,12 +60,11 @@ namespace DuckLog
             
             try
             {
-                // 4. Fetch the real data from Docker!
+                //Fetch the data from Docker
                 var fetchedModules = await _httpClient.GetFromJsonAsync<List<Module>>("/api/modules");
 
                 if (fetchedModules != null)
                 {
-                    // 5. Loop through the backend data instead of the FakeModuleDatabase
                     foreach (var module in fetchedModules)
                     {
                         LoadModuleCardUI(moduleListContainer, module); 
@@ -75,7 +73,7 @@ namespace DuckLog
             }
             catch (Exception ex)
             {
-                // If Docker is off or unreachable, show the error on screen
+                // If Docker is off or unreachable
                 Toast.MakeText(this, $"API Error: {ex.Message}", ToastLength.Long).Show();
             }
         }

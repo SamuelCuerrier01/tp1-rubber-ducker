@@ -12,20 +12,20 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Host=db;Database=BDuckDB;Username=devuser;Password=devpassword
-    command: dotnet watch run --project BackendApi.csproj --no-launch-profile
-
+      - ConnectionStrings__DefaultConnection=Host=db;Database=duck_log_db;Username=devuser;Password=devpassword
+    command: dotnet watch run --non-interactive --project BackendApi.csproj --no-launch-profile
   db:
-    image: postgres:15-alpine
-    container_name: ducklog_postgres_db
+    image: mysql:8.4
+    container_name: ducklog_mysql_db
     environment:
-      POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: devpassword
-      POSTGRES_DB: BDuckDB
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: duck_log_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db_data:/var/lib/mysql
 
 volumes:
-  pgdata:
+  db_data:

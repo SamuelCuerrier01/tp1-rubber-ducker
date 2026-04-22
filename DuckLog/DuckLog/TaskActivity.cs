@@ -1,6 +1,7 @@
 using Android.Content;
 using Android.Views;
 using DuckLog.Models;
+using System.Net.Http.Json;
 
 namespace DuckLog
 {
@@ -21,10 +22,20 @@ namespace DuckLog
         /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override async void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             int moduleId = Intent.GetIntExtra("moduleId", 0);
-            module = FakeModuleDatabase.GetModuleById(moduleId);
+            try 
+            {
+                using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
+                module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "Module not found in database", ToastLength.Short).Show();
+                Finish();
+                return;
+            }
             if (module == null)
             {
                 Toast.MakeText(this, "Error: module not found", ToastLength.Short).Show();

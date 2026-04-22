@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Widget;
 using Android.Content;
+using System.Net.Http.Json;
 using DuckLog.Models;
 using TaskStatus = DuckLog.Models.TaskStatus;
 
@@ -16,17 +17,20 @@ namespace DuckLog
         /// <summary>
         /// Tâche en cours d'édition.
         /// </summary>
-        private ITask _task;
+        private Models.Task _task; 
+        private int _taskId;
 
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les champs du formulaire et les événements des boutons et du spinner.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override async void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
-            int taskId = Intent.GetIntExtra("taskId", 0);
-            _task = FakeModuleDatabase.GetTaskById(taskId);
+            _taskId = Intent.GetIntExtra("taskId", 0);
+            
+            //get task from api
+            _task = await FetchTaskFromApi(_taskId);
 
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
@@ -50,6 +54,14 @@ namespace DuckLog
             editTaskStart.Text = _task.StartDate.ToString("dd/MM/yyyy");
             editTaskEnd.Text = _task.EndDate.ToString("dd/MM/yyyy");
 
+            if (_task != null)
+            {
+                editName.Text = _task.Name;
+                editDesc.Text = _task.Description;
+                editTaskStart.Text = _task.StartDate.ToString("dd/MM/yyyy");
+                editTaskEnd.Text = _task.EndDate.ToString("dd/MM/yyyy");
+            }
+            
             if (btnReturn != null)
             {
                 btnReturn.Click += (s, e) => Finish();
@@ -97,7 +109,7 @@ namespace DuckLog
 
             spinner.ItemSelected += (sender, e) => newStatus = items[e.Position];
 
-            btnCreate.Click += (s, e) =>
+            btnCreate.Click += async (s, e) =>
             {
                 string newName = editName?.Text ?? "";
                 string newDesc = editDesc?.Text ?? "";
@@ -109,10 +121,39 @@ namespace DuckLog
                     return;
                 }
 
-                _task.Edit(newName, newDesc, newEnd, newStart, newStatus);
+                _task.Name = editName.Text;
+                _task.Description = editDesc.Text;
+                _task.StartDate = newStart;
+                _task.EndDate = newEnd;
+                _task.Status = newStatus;
                 
-                Finish();
+                try 
+                {
+                    using var httpClient = new HttpClient();
+                    httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+
+                    // Use PUT to update existing data
+                    var response = await httpClient.PutAsJsonAsync($"/api/tasks/{_taskId}", _task);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Toast.MakeText(this, "Task Updated!", ToastLength.Short).Show();
+                        Finish();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Toast.MakeText(this, "Update failed", ToastLength.Short).Show();
+                }
             };
         }
+        
+        //To fetch task from api
+        private async Task<Models.Task> FetchTaskFromApi(int id)
+        {
+            using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
+            return await client.GetFromJsonAsync<Models.Task>($"/api/tasks/{id}");
+        }
     }
+    
 }

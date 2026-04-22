@@ -3,17 +3,60 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Database config
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
-// Tell the endpoint to ask AppDbContext for the data
+
+//dotnet ef database update --> use it in terminal,
+//we must use it every time after a pull from github so database is synced
+
+//Get all modules
 app.MapGet("/api/modules", async (AppDbContext db) =>
 {
-    // This translates to: SELECT * FROM Modules;
     var modules = await db.Modules.ToListAsync();
     return Results.Ok(modules);
 });
+
+//Create a module
+app.MapPost("/api/modules", async (BackendApi.Models.Module newModule, AppDbContext db) =>
+{
+    db.Modules.Add(newModule);
+    
+    await db.SaveChangesAsync();
+    
+    return Results.Created($"/api/modules/{newModule.Id}", newModule);
+});
+
+//Create a task
+app.MapPost("/api/tasks", async (BackendApi.Models.Task newTask, AppDbContext db) =>
+{
+    db.Tasks.Add(newTask);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/tasks/{newTask.Id}", newTask);
+});
+
+//Update task
+app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask, AppDbContext db) =>
+{
+    var task = await db.Tasks.FindAsync(id);
+    if (task is null) return Results.NotFound();
+
+    task.Name = updatedTask.Name;
+    task.Description = updatedTask.Description;
+    task.StartDate = updatedTask.StartDate;
+    task.EndDate = updatedTask.EndDate;
+    task.Status = updatedTask.Status;
+
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+});
+
+//Get a precise module
+app.MapGet("/api/modules/{id}", async (int id, AppDbContext db) =>
+    await db.Modules.FindAsync(id) is BackendApi.Models.Module m 
+        ? Results.Ok(m) 
+        : Results.NotFound());
 
 app.Run();

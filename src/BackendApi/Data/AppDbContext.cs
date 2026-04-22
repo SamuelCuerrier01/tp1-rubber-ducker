@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    // This line tells EF Core to create a table called "Modules"
+    //represents table in database ex: Modules, Tasks, etc. 
     public DbSet<Module> Modules { get; set; }
+    public DbSet<Models.Task> Tasks { get; set; }
 }

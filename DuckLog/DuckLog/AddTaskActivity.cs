@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Widget;
 using DuckLog.Models;
 using TaskStatus = DuckLog.Models.TaskStatus;
+using System.Net.Http.Json;
 
 namespace DuckLog
 {
@@ -17,7 +18,7 @@ namespace DuckLog
         /// <summary>
         /// Module auquel la tâche sera ajoutée.
         /// </summary>
-        private Module _module;
+        private int _moduleId;
 
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
@@ -26,8 +27,7 @@ namespace DuckLog
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
         protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
-            int moduleId = Intent.GetIntExtra("moduleId", 0);
-            _module = FakeModuleDatabase.GetModuleById(moduleId);
+            _moduleId = Intent.GetIntExtra("moduleId", 0);
 
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
@@ -102,7 +102,7 @@ namespace DuckLog
                 newStatus = items[e.Position];
             };
 
-            btnCreate.Click += (s, e) =>
+            btnCreate.Click += async (s, e) =>
             {
                 string newName = editName?.Text ?? "";
                 string newDesc = editDesc?.Text ?? "";
@@ -114,10 +114,32 @@ namespace DuckLog
                     return;
                 }
 
-                ITask task = new Models.Task(newName, newDesc, newEnd, newStart, newStatus);
-                _module.AddTask(task);
+                var newTask = new {
+                    Name = newName,
+                    Description = newDesc,
+                    StartDate = newStart,
+                    EndDate = newEnd,
+                    Status = newStatus.ToString(),
+                    ModuleId = _moduleId 
+                };
+                
+                try 
+                {
+                    using var httpClient = new HttpClient();
+                    httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+                    
+                    //Post to add task into api
+                    var response = await httpClient.PostAsJsonAsync("/api/modules/tasks", newTask);
 
-                Finish();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Finish();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Toast.MakeText(this, "Network Error", ToastLength.Short).Show();
+                }
             };
         }
     }
