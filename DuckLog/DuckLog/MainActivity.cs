@@ -1,14 +1,22 @@
-namespace DuckLog;
+using Android.App;
 
-
-public class MainActivity : Activity
+namespace DuckLog
 {
-    
-    protected override void OnCreate(Bundle? savedInstanceState)
+    /// <summary>
+    /// Activité principale de l'application DuckLog.
+    /// Sert de point d'entrée initial et charge l'interface utilisateur principale.
+    /// </summary>
+    [Activity]
+    public class MainActivity : Activity
     {
-        base.OnCreate(savedInstanceState);
-
-        // Set our view from the "main" layout resource
-        SetContentView(Resource.Layout.activity_main);
+        /// <summary>
+        /// Méthode appelée lors de la création de l'activité.
+        /// Initialise l'interface utilisateur et les composants nécessaires.
+        /// </summary>
+        /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
+        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+        }
     }
 }
