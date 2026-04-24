@@ -1,7 +1,3 @@
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using DuckLog.Models;
 using TaskStatus = DuckLog.Models.TaskStatus;
 using System.Net.Http.Json;
 
@@ -25,7 +21,7 @@ namespace DuckLog
         /// Initialise les champs de formulaire, les boutons et le spinner de statut.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
             _moduleId = Intent.GetIntExtra("moduleId", 0);
 

@@ -1,16 +1,21 @@
 using BackendApi.Data;
+using BackendApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Database config
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(connectionString));
+
 var app = builder.Build();
 
 
 //dotnet ef database update --> use it in terminal,
-//we must use it every time after a pull from github so database is synced
+//we must use it every time after a pull from GitHub so database is synced
 
 //Get all modules
 app.MapGet("/api/modules", async (AppDbContext db) =>
@@ -20,7 +25,7 @@ app.MapGet("/api/modules", async (AppDbContext db) =>
 });
 
 //Create a module
-app.MapPost("/api/modules", async (BackendApi.Models.Module newModule, AppDbContext db) =>
+app.MapPost("/api/modules", async (Module newModule, AppDbContext db) =>
 {
     db.Modules.Add(newModule);
     
@@ -55,7 +60,7 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
 
 //Get a precise module
 app.MapGet("/api/modules/{id}", async (int id, AppDbContext db) =>
-    await db.Modules.FindAsync(id) is BackendApi.Models.Module m 
+        await db.Modules.FindAsync(id) is { } m 
         ? Results.Ok(m) 
         : Results.NotFound());
 

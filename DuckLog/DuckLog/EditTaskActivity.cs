@@ -1,8 +1,4 @@
-using Android.App;
-using Android.Widget;
-using Android.Content;
 using System.Net.Http.Json;
-using DuckLog.Models;
 using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog

@@ -1,11 +1,6 @@
-using System.Text.Json;
 using System.Net.Http.Json;
-using Android.App;
 using Android.Content;
-using Android.OS;
 using Android.Views;
-using Android.Widget;
-using DuckLog;
 using DuckLog.Models;
 
 namespace DuckLog
@@ -14,14 +9,14 @@ namespace DuckLog
     public class ModuleActvity : Activity
     {
         // Create http client for network requests
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient();
 
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             // Set up client
-            if (_httpClient.BaseAddress == null)
+            if (HttpClient.BaseAddress == null)
             {
-                _httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+                HttpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
             }
 
             ActionBar?.Hide();
@@ -61,13 +56,13 @@ namespace DuckLog
             try
             {
                 //Fetch the data from Docker
-                var fetchedModules = await _httpClient.GetFromJsonAsync<List<Module>>("/api/modules");
+                var fetchedModules = await HttpClient.GetFromJsonAsync<List<Module>>("/api/modules");
 
                 if (fetchedModules != null)
                 {
                     foreach (var module in fetchedModules)
                     {
-                        LoadModuleCardUI(moduleListContainer, module); 
+                        LoadModuleCardUi(moduleListContainer, module); 
                     }
                 }
             }
@@ -78,7 +73,7 @@ namespace DuckLog
             }
         }
 
-        private void LoadModuleCardUI(LinearLayout container, Module module)
+        private void LoadModuleCardUi(LinearLayout container, Module module)
         {
             View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);
             
