@@ -13,7 +13,7 @@ namespace DuckLog.Models
         /// Generer le prochain identifiant pour tâche.
         /// </summary>
         [ObservableProperty]
-        private static int _next_id = 1;
+        private static int _nextId = 1;
         
         /// <summary>
         /// Identifiant unique de la tâche.
@@ -67,7 +67,7 @@ namespace DuckLog.Models
         /// <param name="status">Statut initial de la tâche.</param>
         public Task(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
         {
-            _id = _next_id++;
+            _id = _nextId++;
             _name = name;
             _description = description;
             _endDate = endDate;

@@ -1,6 +1,4 @@
 using DuckLog.Models;
-using DuckLog.Data; 
-
 namespace DuckLog;
 
 [Activity(Label = "Connexion")]
