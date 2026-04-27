@@ -39,4 +39,9 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     </ItemGroup>
+    <ItemGroup>
+      <AndroidResource Update="Resources\drawable\generate_btn.png">
+        <SubType>Designer</SubType>
+      </AndroidResource>
+    </ItemGroup>
 </Project>
