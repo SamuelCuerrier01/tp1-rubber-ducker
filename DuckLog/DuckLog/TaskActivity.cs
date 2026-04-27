@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -7,6 +8,7 @@ using Android.Widget;
 using DuckLog;
 using DuckLog.Api;
 using DuckLog.Models;
+using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog
 {
@@ -52,8 +54,10 @@ namespace DuckLog
             btnGenerate.Click += async (sender, e) =>
             {
                 Toast.MakeText(this, "Generating task", ToastLength.Short).Show();
+                btnGenerate.SetImageResource(Resource.Drawable.loading);
 
                 await System.Threading.Tasks.Task.Run(() => ApiRequest.Run(module));
+                btnGenerate.SetImageResource(Resource.Drawable.generate_btn);
 
                 RunOnUiThread(() =>
                 {
@@ -88,6 +92,19 @@ namespace DuckLog
             LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
             //Inflater for XML
             View taskCard = LayoutInflater.Inflate(Resource.Layout.item_task, container, false);
+
+            switch (task.Status)
+            {
+                case TaskStatus.Done :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_done);
+                    break;
+                case TaskStatus.InProgress :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_in_progress);
+                    break;
+                default :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_todo);
+                    break;
+            }
             
             //Text for module
             TextView txtName = taskCard.FindViewById<TextView>(Resource.Id.txtTaskName);
