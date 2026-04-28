@@ -6,7 +6,7 @@ using Android.Views;
 using Android.Widget;
 using DuckLog;
 using DuckLog.Models;
-
+using DuckLog.Notifications;
 namespace DuckLog
 {
     /// <summary>
@@ -26,6 +26,10 @@ namespace DuckLog
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_module);
+            
+            NotificationHelper.CreateNotificationChannel(this);
+            AlarmScheduler.Schedule(this);
+            NotificationHelper.CheckAndNotifyAll(this);
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
             LinearLayout moduleListContainer = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
