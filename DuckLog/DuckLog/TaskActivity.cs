@@ -15,7 +15,7 @@ namespace DuckLog
         /// <summary>
         /// Module dont les tâches sont affichées.
         /// </summary>
-        public Module module;
+        public required Module Module;
 
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
@@ -28,7 +28,7 @@ namespace DuckLog
             try 
             {
                 using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
-                module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
+                Module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace DuckLog
                 Finish();
                 return;
             }
-            if (module == null)
+            if (Module == null)
             {
                 Toast.MakeText(this, "Error: module not found", ToastLength.Short).Show();
                 Finish();
@@ -56,7 +56,7 @@ namespace DuckLog
             btnAddTaskArea.Click += (sender, e) =>
             {
                 Intent intent = new Intent(this, typeof(AddTaskActivity));
-                intent.PutExtra("moduleId", module.Id);
+                intent.PutExtra("moduleId", Module.Id);
                 StartActivity(intent);
             };
 
@@ -66,7 +66,7 @@ namespace DuckLog
             }
 
             TextView taskHeaderText = FindViewById<TextView>(Resource.Id.taskHeaderText);
-            taskHeaderText.Text = $"{module.Name} Tasks";
+            taskHeaderText.Text = $"{Module.Name} Tasks";
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace DuckLog
                 taskListContainer.RemoveViewAt(0);
             }
 
-            foreach (var task in module.GetTasks())
+            foreach (var task in Module.GetTasks())
             {
                 LoadTaskCardUI(taskListContainer, task);
             }
