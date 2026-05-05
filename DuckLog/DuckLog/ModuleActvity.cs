@@ -1,42 +1,34 @@
-using System.Text.Json;
-using Android.App;
+using System.Net.Http.Json;
 using Android.Content;
-using Android.OS;
 using Android.Views;
-using Android.Widget;
-using DuckLog;
 using DuckLog.Models;
-using DuckLog.Notifications;
+
 namespace DuckLog
 {
     [Activity(MainLauncher = true)]
-    //[Activity(Label = "Module Activity")]
     public class ModuleActvity : Activity
     {
+        // Create http client for network requests
+        private static readonly HttpClient HttpClient = new HttpClient();
+
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            ActionBar?.Hide(); // hide the default action bar
+            // Set up client
+            if (HttpClient.BaseAddress == null)
+            {
+                HttpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+            }
+
+            ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_module);
-            
-            NotificationHelper.CreateNotificationChannel(this);
-            AlarmScheduler.Schedule(this);
-            NotificationHelper.CheckAndNotifyAll(this);
 
-            //return button
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
-            
-            //list of created modules
-            LinearLayout moduleListContainer = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
-            //add module button
             RelativeLayout btnAddModuleArea = FindViewById<RelativeLayout>(Resource.Id.btnAddModuleArea);
 
             if (btnReturn != null)
             {
-                btnReturn.Click += (sender, e) =>
-                {
-                    Finish(); //if module window is always after MainActivity, it will just go back to MainActivity
-                };
+                btnReturn.Click += (sender, e) => Finish();
             }
 
             if (btnAddModuleArea != null)
@@ -45,40 +37,46 @@ namespace DuckLog
                 {
                     Intent intent = new Intent(this, typeof(AddModuleActivity));
                     StartActivity(intent);
-                    //TODO: go to a new page of creation of module
-                    
                 };
             }
         }
 
-        protected override void OnResume()
+        // Async so it can wait for Docker 
+        protected override async void OnResume()
         {
             base.OnResume();
 
             LinearLayout moduleListContainer = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
-
+            
             while (moduleListContainer.ChildCount > 1)
             {
                 moduleListContainer.RemoveViewAt(0);
             }
             
-            //TODO: get modules form database here
-            //List<ModuleDemo> userModules = Database.GetModules();
-            
-            foreach (var module in FakeModuleDatabase.MyModules)
+            try
             {
-                // Notice we are just passing 'module' now!
-                LoadModuleCardUI(moduleListContainer, module); 
+                //Fetch the data from Docker
+                var fetchedModules = await HttpClient.GetFromJsonAsync<List<Module>>("/api/modules");
+
+                if (fetchedModules != null)
+                {
+                    foreach (var module in fetchedModules)
+                    {
+                        LoadModuleCardUi(moduleListContainer, module); 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // If Docker is off or unreachable
+                Toast.MakeText(this, $"API Error: {ex.Message}", ToastLength.Long).Show();
             }
         }
 
-        private void LoadModuleCardUI(LinearLayout container, ModuleDemo module)
+        private void LoadModuleCardUi(LinearLayout container, Module module)
         {
-            LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
-            //Inflater for XML
             View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);
             
-            //Text for module
             TextView txtName = moduleCard.FindViewById<TextView>(Resource.Id.txtModuleName);
             TextView txtTotalTasks = moduleCard.FindViewById<TextView>(Resource.Id.txtTotalTasks);
             ProgressBar progressBar = moduleCard.FindViewById<ProgressBar>(Resource.Id.progress_bar_horizontal);
@@ -99,7 +97,6 @@ namespace DuckLog
                 progressText.Text = $"{percentage}%";
             }
 
-            //Insertion before add module button
             int insertIndex = container.ChildCount - 1;
             container.AddView(moduleCard, insertIndex);
             

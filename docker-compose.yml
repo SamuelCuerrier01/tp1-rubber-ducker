@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    container_name: ducklog_backend_api
+    working_dir: /app
+    volumes:
+      - ./src/BackendApi:/app
+    ports:
+      - "5050:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Host=db;Database=duck_log_db;Username=devuser;Password=devpassword
+    command: dotnet watch run --non-interactive --project BackendApi.csproj --no-launch-profile
+  db:
+    image: mysql:8.4
+    container_name: ducklog_mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: duck_log_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

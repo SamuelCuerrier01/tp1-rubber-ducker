@@ -8,7 +8,7 @@ namespace DuckLog.Models;
 /// </summary>
 public abstract class IModule
 {
-    private static int _next_id = 1;
+    private static int _nextId = 1;
 
     /// <summary>
     /// Gets the module identifier.
@@ -45,7 +45,7 @@ public abstract class IModule
     /// </summary>
     public IModule()
     {
-        Id = _next_id++;
+        Id = _nextId++;
     }
 
     /// <summary>
