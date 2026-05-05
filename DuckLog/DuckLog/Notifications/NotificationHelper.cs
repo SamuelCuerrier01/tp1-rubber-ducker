@@ -1,8 +1,10 @@
+using System.Net.Http.Json;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
 using DuckLog.Models;
+using Task = System.Threading.Tasks.Task;
 using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog.Notifications
@@ -22,10 +24,10 @@ namespace DuckLog.Notifications
         /// </summary>
         /// <param name="context">Contexte Android.</param>
         [System.Runtime.Versioning.SupportedOSPlatform("android26.0")]
-        public static void CreateNotificationChannel(Context context)
+        public static Task CreateNotificationChannel (Context context)
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.O)
-                return;
+                return null;
 
             var channel = new NotificationChannel(ChannelId, ChannelName, NotificationImportance.Default)
             {
@@ -34,6 +36,8 @@ namespace DuckLog.Notifications
 
             var manager = (NotificationManager)context.GetSystemService(Context.NotificationService)!;
             manager.CreateNotificationChannel(channel);
+            
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -83,14 +87,18 @@ namespace DuckLog.Notifications
         /// Ignore les tâches déjà complétées.
         /// </summary>
         /// <param name="context">Contexte Android.</param>
-        public static void CheckAndNotifyAll(Context context)
+        public async static void CheckAndNotifyAll(Context context)
         {
+            
             DateTime now = DateTime.Now;
             
             DateTime inADay = now.AddHours(24);
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
             
+            var modules = await httpClient.GetFromJsonAsync<List<Module>>("/api/modules");
             int notifId = 1000;
-            foreach (var module in FakeModuleDatabase.MyModules)
+            foreach (var module in modules)
             {
                 foreach (var task in module.GetTasks())
                 {

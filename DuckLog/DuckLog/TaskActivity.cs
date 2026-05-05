@@ -2,6 +2,7 @@ using Android.Content;
 using Android.Views;
 using DuckLog.Models;
 using System.Net.Http.Json;
+using Task = DuckLog.Models.Task;
 
 namespace DuckLog
 {
@@ -17,6 +18,8 @@ namespace DuckLog
         /// </summary>
         public Module module;
 
+        private static readonly HttpClient HttpClient = new HttpClient();
+        
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
@@ -29,6 +32,7 @@ namespace DuckLog
             {
                 using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
                 module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
+                List<Task> tasks = await client.GetFromJsonAsync<List<Task>>($"/api/tasks/{moduleId}");
             }
             catch (Exception ex)
             {

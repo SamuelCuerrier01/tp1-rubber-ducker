@@ -131,6 +131,11 @@ namespace DuckLog
                     {
                         Finish();
                     }
+                    else
+                    {
+                        Toast.MakeText(this, "Server Error: Could not save.", ToastLength.Long).Show();
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
