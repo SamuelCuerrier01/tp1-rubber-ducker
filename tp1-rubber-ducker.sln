@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DuckLog", "DuckLog", "{B0E7EBEC-E687-F224-D42C-D7B157075A05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckLog", "DuckLog\DuckLog\DuckLog.csproj", "{0D4E7966-7251-1E52-F0F5-AB093AFACBE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D4E7966-7251-1E52-F0F5-AB093AFACBE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D4E7966-7251-1E52-F0F5-AB093AFACBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D4E7966-7251-1E52-F0F5-AB093AFACBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D4E7966-7251-1E52-F0F5-AB093AFACBE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D4E7966-7251-1E52-F0F5-AB093AFACBE4} = {B0E7EBEC-E687-F224-D42C-D7B157075A05}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CF8C548-FB10-439F-8B13-78BF21AC7D58}
+	EndGlobalSection
+EndGlobal

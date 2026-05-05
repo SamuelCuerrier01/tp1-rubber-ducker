@@ -1,4 +1,3 @@
-using System.Net.Http.Json;
 using DuckLog.Models;
 
 namespace DuckLog
@@ -15,7 +14,7 @@ namespace DuckLog
         /// Initialise les champs de saisie, les boutons et leurs événements.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
@@ -37,7 +36,7 @@ namespace DuckLog
 
             if (btnCreate != null)
             {
-                btnCreate.Click += async (s, e) =>
+                btnCreate.Click += (s, e) =>
                 {
                     string newName = editName?.Text ?? "";
                     string newDesc = editDesc?.Text ?? "";
@@ -49,29 +48,10 @@ namespace DuckLog
                     }
 
 
-                    Module newModule = new Module(newName, newDesc);
-                    try 
-                    {
-                        // Client set up
-                        using var httpClient = new HttpClient();
-                        httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+                    ModuleDemo newModule = new ModuleDemo(newName, newDesc);
+                    FakeModuleDatabase.MyModules.Add(newModule);
 
-                        // Post module into api
-                        var response = await httpClient.PostAsJsonAsync("/api/modules", newModule);
-
-                        if (response.IsSuccessStatusCode)
-                        {
-                            Finish(); //Close the screen if the database saved it
-                        }
-                        else
-                        {
-                            Toast.MakeText(this, "Server Error: Could not save.", ToastLength.Long).Show();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Toast.MakeText(this, $"Connection failed: {ex.Message}", ToastLength.Long).Show();
-                    }
+                    Finish();
                 };
             }
         }

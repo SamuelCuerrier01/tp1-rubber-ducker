@@ -1,56 +1,44 @@
+using System.Text.Json;
+using Android;
+using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Views;
+using Android.Widget;
+using DuckLog;
+using DuckLog.Api;
 using DuckLog.Models;
-using System.Net.Http.Json;
+using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog
 {
-    /// <summary>
-    /// Activité affichant la liste des tâches d'un module.
-    /// Permet de naviguer vers l'ajout ou l'édition de tâches.
-    /// </summary>
-    [Activity]
+    [Activity(MainLauncher = true)]
+    //[Activity(Label = "Task Activity")]
     public class TaskActivity : Activity
     {
-        /// <summary>
-        /// Module dont les tâches sont affichées.
-        /// </summary>
-        public Module module;
-
-        /// <summary>
-        /// Méthode appelée lors de la création de l'activité.
-        /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
-        /// </summary>
-        /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override async void OnCreate(Android.OS.Bundle? savedInstanceState)
+        public ModuleDemo module;
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
             int moduleId = Intent.GetIntExtra("moduleId", 0);
-            try 
-            {
-                using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
-                module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
-            }
-            catch (Exception ex)
-            {
-                Toast.MakeText(this, "Module not found in database", ToastLength.Short).Show();
-                Finish();
-                return;
-            }
+            module = FakeModuleDatabase.GetModuleById( moduleId );
             if (module == null)
             {
                 Toast.MakeText(this, "Error: module not found", ToastLength.Short).Show();
-                Finish();
+                Finish(); // go back
                 return;
             }
-
-            ActionBar?.Hide();
+            
+            ActionBar?.Hide(); // hide the default action bar
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_task);
 
+            //return button
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
-
+            ImageButton btnGenerate = FindViewById<ImageButton>(Resource.Id.btnGenerate);
+            
+            //list of created tasks
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
-
+            //add task button
             RelativeLayout btnAddTaskArea = FindViewById<RelativeLayout>(Resource.Id.btnAddTaskArea);
 
             btnAddTaskArea.Click += (sender, e) =>
@@ -59,24 +47,90 @@ namespace DuckLog
                 intent.PutExtra("moduleId", module.Id);
                 StartActivity(intent);
             };
-
-            if (btnReturn != null)
+            btnReturn.Click += (sender, e) =>
             {
-                btnReturn.Click += (sender, e) => Finish();
-            }
+                Finish();
+            };
+            btnGenerate.Click += async (sender, e) =>
+            {
+                Toast.MakeText(this, "Generating task", ToastLength.Short).Show();
+                btnGenerate.SetImageResource(Resource.Drawable.loading);
 
+                await System.Threading.Tasks.Task.Run(() => ApiRequest.Run(module));
+                btnGenerate.SetImageResource(Resource.Drawable.generate_btn);
+
+                RunOnUiThread(() =>
+                {
+                    ReloadTasks();
+                });
+            };
+
+            if (btnAddTaskArea != null)
+            {
+                btnAddTaskArea.Click += (sender, e) =>
+                {
+                    Android.Util.Log.Debug("MyApp", "créer tache");
+                    
+                };
+            }
+            
             TextView taskHeaderText = FindViewById<TextView>(Resource.Id.taskHeaderText);
             taskHeaderText.Text = $"{module.Name} Tasks";
         }
 
-        /// <summary>
-        /// Méthode appelée lors de la reprise de l'activité.
-        /// Rafraîchit la liste des tâches affichées.
-        /// </summary>
         protected override void OnResume()
         {
             base.OnResume();
 
+            LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
+
+            ReloadTasks();
+        }
+
+        private void LoadTaskCardUI(LinearLayout container, ITask task)
+        {
+            LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
+            //Inflater for XML
+            View taskCard = LayoutInflater.Inflate(Resource.Layout.item_task, container, false);
+
+            switch (task.Status)
+            {
+                case TaskStatus.Done :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_done);
+                    break;
+                case TaskStatus.InProgress :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_in_progress);
+                    break;
+                default :
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_todo);
+                    break;
+            }
+            
+            //Text for module
+            TextView txtName = taskCard.FindViewById<TextView>(Resource.Id.txtTaskName);
+            TextView txtStatus = taskCard.FindViewById<TextView>(Resource.Id.txtTaskStatus);
+            TextView txtStart = taskCard.FindViewById<TextView>(Resource.Id.txtTaskStart);
+            TextView txtEnd = taskCard.FindViewById<TextView>(Resource.Id.txtTaskEnd);
+
+            txtName.Text = task.Name;
+            txtStatus.Text = task.Status.ToString();
+            txtStart.Text = "Start : " + task.StartDate.ToString("dd/MM/yyyy");
+            txtEnd.Text = "End : " + task.EndDate.ToString("dd/MM/yyyy");
+
+            //Insertion before add task button
+            int insertIndex = container.ChildCount - 1;
+            container.AddView(taskCard, insertIndex);
+            
+            taskCard.Click += (sender, e) =>
+            {
+                Intent intent = new Intent(this, typeof(EditTaskActivity));
+                intent.PutExtra("taskId", task.Id);
+                StartActivity(intent);
+            };
+        }
+        
+        private void ReloadTasks()
+        {
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
 
             while (taskListContainer.ChildCount > 1)
@@ -89,37 +143,7 @@ namespace DuckLog
                 LoadTaskCardUI(taskListContainer, task);
             }
         }
-
-        /// <summary>
-        /// Crée et ajoute une carte représentant une tâche dans le conteneur donné.
-        /// Permet de cliquer sur la carte pour éditer la tâche.
-        /// </summary>
-        /// <param name="container">Conteneur LinearLayout où ajouter la carte de tâche.</param>
-        /// <param name="task">Tâche à afficher.</param>
-        private void LoadTaskCardUI(LinearLayout container, ITask task)
-        {
-            // Inflate de la carte XML
-            View taskCard = LayoutInflater.Inflate(Resource.Layout.item_task, container, false);
-
-            TextView txtName = taskCard.FindViewById<TextView>(Resource.Id.txtTaskName);
-            TextView txtStatus = taskCard.FindViewById<TextView>(Resource.Id.txtTaskStatus);
-            TextView txtStart = taskCard.FindViewById<TextView>(Resource.Id.txtTaskStart);
-            TextView txtEnd = taskCard.FindViewById<TextView>(Resource.Id.txtTaskEnd);
-
-            txtName.Text = task.Name;
-            txtStatus.Text = task.Status.ToString();
-            txtStart.Text = "Start : " + task.StartDate.ToString("dd/MM/yyyy");
-            txtEnd.Text = "End : " + task.EndDate.ToString("dd/MM/yyyy");
-
-            int insertIndex = container.ChildCount - 1;
-            container.AddView(taskCard, insertIndex);
-
-            taskCard.Click += (sender, e) =>
-            {
-                Intent intent = new Intent(this, typeof(EditTaskActivity));
-                intent.PutExtra("taskId", task.Id);
-                StartActivity(intent);
-            };
-        }
     }
+    
+    
 }
