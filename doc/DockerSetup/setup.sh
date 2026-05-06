@@ -6,7 +6,7 @@ cd ../../
 dotnet tool update --global dotnet-ef
 
 docker-compose down -v
-docker-compose up -d
+docker-compose up -d --build
 
 echo "Waiting 5 seconds for MySQL to wake up..."
 sleep 5
