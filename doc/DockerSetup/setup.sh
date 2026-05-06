@@ -8,8 +8,8 @@ dotnet tool update --global dotnet-ef
 docker-compose down -v
 docker-compose up -d --build
 
-echo "Waiting 5 seconds for MySQL to wake up..."
-sleep 5
+echo "Waiting 15 seconds for MySQL to wake up..."
+sleep 15
 
 cd src/BackendApi
 rm -rf obj bin

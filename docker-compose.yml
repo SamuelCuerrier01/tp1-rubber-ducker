@@ -17,8 +17,9 @@ services:
       - ConnectionStrings__DefaultConnection=Host=db;Database=duck_log_db;Username=devuser;Password=devpassword
     command: dotnet watch run --non-interactive --project BackendApi.csproj --no-launch-profile
   db:
-    image: mysql:8.4
+    image: mysql:8.0
     container_name: ducklog_mysql_db
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: duck_log_db
