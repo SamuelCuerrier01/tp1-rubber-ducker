@@ -8,8 +8,8 @@ dotnet tool update --global dotnet-ef
 docker-compose down -v
 docker-compose up -d --build
 
-echo "Waiting 15 seconds for MySQL to wake up..."
-sleep 15
+echo "Waiting 25 seconds for MySQL to wake up..."
+sleep 25
 
 cd src/BackendApi
 rm -rf obj bin
@@ -17,6 +17,6 @@ rm -rf obj bin
 dotnet clean
 dotnet restore BackendApi.csproj --force
 
-dotnet ef database update --project BackendApi.csproj
+~/.dotnet/tools/dotnet-ef database update --project BackendApi.csproj
 
 echo "Database is ready! You can now run the API."
