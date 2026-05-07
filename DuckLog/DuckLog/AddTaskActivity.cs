@@ -2,6 +2,9 @@ using DuckLog.Models;
 using Java.Sql;
 using TaskStatus = DuckLog.Models.TaskStatus;
 using System.Net.Http.Json;
+using Android.App;
+using Android.OS;
+using Android.Widget;
 
 namespace DuckLog;
 
@@ -26,9 +29,9 @@ public class AddTaskActivity : Activity
         TaskStatus newStatus = TaskStatus.Todo;
         DateTime newStart =  DateTime.MinValue;
         DateTime newEnd =  DateTime.MinValue;
-        Button btnCreate = FindViewById<Button>(Resource.Id.btnCreateTask);
+        Android.Widget.Button btnCreate = FindViewById<Android.Widget.Button>(Resource.Id.btnCreateTask);
         
-        ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+        Android.Widget.ImageButton btnReturn = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnReturn);
         
         if (btnReturn != null)
         {

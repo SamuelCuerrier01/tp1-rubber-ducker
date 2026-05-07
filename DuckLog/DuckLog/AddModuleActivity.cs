@@ -1,3 +1,5 @@
+using Android.App;
+using Android.Widget;
 using DuckLog.Models;
 
 namespace DuckLog
@@ -23,8 +25,8 @@ namespace DuckLog
 
             EditText editName = FindViewById<EditText>(Resource.Id.editModuleName);
             EditText editDesc = FindViewById<EditText>(Resource.Id.editModuleDesc);
-            Button btnCreate = FindViewById<Button>(Resource.Id.btnCreateModule);
-            ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+            Android.Widget.Button btnCreate = FindViewById<Android.Widget.Button>(Resource.Id.btnCreateModule);
+            Android.Widget.ImageButton btnReturn = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnReturn);
 
             if (btnReturn != null)
             {

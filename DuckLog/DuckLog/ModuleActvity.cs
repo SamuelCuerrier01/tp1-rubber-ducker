@@ -24,7 +24,7 @@ namespace DuckLog
             NotificationHelper.CheckAndNotifyAll(this);
 
             //return button
-            ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+            Android.Widget.ImageButton btnReturn = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnReturn);
             
             //list of created modules
             LinearLayout moduleListContainer = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
@@ -76,12 +76,12 @@ namespace DuckLog
         {
             LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.moduleListContainer);
             //Inflater for XML
-            View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);
+            Android.Views.View moduleCard = LayoutInflater.Inflate(Resource.Layout.item_module, container, false);
             
             //Text for module
             TextView txtName = moduleCard.FindViewById<TextView>(Resource.Id.txtModuleName);
             TextView txtTotalTasks = moduleCard.FindViewById<TextView>(Resource.Id.txtTotalTasks);
-            ProgressBar progressBar = moduleCard.FindViewById<ProgressBar>(Resource.Id.progress_bar_horizontal);
+            Android.Widget.ProgressBar progressBar = moduleCard.FindViewById<Android.Widget.ProgressBar>(Resource.Id.progress_bar_horizontal);
             TextView progressText = moduleCard.FindViewById<TextView>(Resource.Id.progressText);
             
             if (txtName != null) txtName.Text = module.Name;

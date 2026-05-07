@@ -33,8 +33,8 @@ namespace DuckLog
             SetContentView(Resource.Layout.activity_task);
 
             //return button
-            ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
-            ImageButton btnGenerate = FindViewById<ImageButton>(Resource.Id.btnGenerate);
+            Android.Widget.ImageButton btnReturn = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnReturn);
+            Android.Widget.ImageButton btnGenerate = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnGenerate);
             
             //list of created tasks
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
@@ -91,7 +91,7 @@ namespace DuckLog
         {
             LinearLayout taskListView = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
             //Inflater for XML
-            View taskCard = LayoutInflater.Inflate(Resource.Layout.item_task, container, false);
+            Android.Views.View taskCard = LayoutInflater.Inflate(Resource.Layout.item_task, container, false);
 
             switch (task.Status)
             {

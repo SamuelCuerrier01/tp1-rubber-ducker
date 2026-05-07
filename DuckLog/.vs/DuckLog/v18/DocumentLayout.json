@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\eva\\Documents\\cegep\\methodeAgiles\\tp1-rubber-ducker\\DuckLog\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AF68B827-D0EA-4730-9736-6480636BAC5A}|DuckLog\\DuckLog.csproj|c:\\users\\eva\\documents\\cegep\\methodeagiles\\tp1-rubber-ducker\\ducklog\\ducklog\\resources\\layout\\activity_connection.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|Form",
+      "RelativeMoniker": "D:0:0:{AF68B827-D0EA-4730-9736-6480636BAC5A}|DuckLog\\DuckLog.csproj|solutionrelative:ducklog\\resources\\layout\\activity_connection.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "activity_connection.xml",
+              "DocumentMoniker": "C:\\Users\\eva\\Documents\\cegep\\methodeAgiles\\tp1-rubber-ducker\\DuckLog\\DuckLog\\Resources\\layout\\activity_connection.xml",
+              "RelativeDocumentMoniker": "DuckLog\\Resources\\layout\\activity_connection.xml",
+              "ToolTip": "C:\\Users\\eva\\Documents\\cegep\\methodeAgiles\\tp1-rubber-ducker\\DuckLog\\DuckLog\\Resources\\layout\\activity_connection.xml",
+              "RelativeToolTip": "DuckLog\\Resources\\layout\\activity_connection.xml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2026-05-07T16:59:54.77Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

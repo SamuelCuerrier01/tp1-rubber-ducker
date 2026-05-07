@@ -1,3 +1,6 @@
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using DuckLog.Models;
 namespace DuckLog;
 
@@ -10,7 +13,7 @@ class ConnectionActivity : Activity
         SetContentView(Resource.Layout.activity_connection);
 
         
-        Button connectionButton = FindViewById<Button>(Resource.Id.connection_button);
+        Android.Widget.Button connectionButton = FindViewById<Android.Widget.Button>(Resource.Id.connection_button);
         EditText emailInput = FindViewById<EditText>(Resource.Id.email_field); 
         EditText passwordInput = FindViewById<EditText>(Resource.Id.password_field);
 

@@ -4,6 +4,7 @@ using Android.Widget;
 using Android.Content;
 using System.Net.Http.Json;
 using TaskStatus = DuckLog.Models.TaskStatus;
+using Android.OS;
 
 namespace DuckLog;
 
@@ -23,7 +24,7 @@ public class EditTaskActivity : Activity
         
         EditText editName = FindViewById<EditText>(Resource.Id.editTaskName);
         EditText editDesc = FindViewById<EditText>(Resource.Id.editTaskDesc);
-        Button btnCreate = FindViewById<Button>(Resource.Id.btnCreateTask);
+        Android.Widget.Button btnCreate = FindViewById<Android.Widget.Button>(Resource.Id.btnCreateTask);
         EditText editTaskStart = FindViewById<EditText>(Resource.Id.editTaskStart);
         EditText editTaskEnd = FindViewById<EditText>(Resource.Id.editTaskEnd);
         Spinner spinner = FindViewById<Spinner>(Resource.Id.editTaskStatus);
@@ -35,7 +36,7 @@ public class EditTaskActivity : Activity
         editTaskStart.Text = _task.StartDate.ToString("dd/MM/yyyy");
         editTaskEnd.Text = _task.EndDate.ToString("dd/MM/yyyy");
         
-        ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+        Android.Widget.ImageButton btnReturn = FindViewById<Android.Widget.ImageButton>(Resource.Id.btnReturn);
         
         if (btnReturn != null)
         {
