@@ -9,7 +9,7 @@ using DuckLog.Models;
 using DuckLog.Notifications;
 namespace DuckLog
 {
-    [Activity(MainLauncher = true)]
+    [Activity]
     //[Activity(Label = "Module Activity")]
     public class ModuleActvity : Activity
     {

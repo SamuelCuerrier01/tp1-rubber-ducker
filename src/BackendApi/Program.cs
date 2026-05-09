@@ -23,7 +23,7 @@ app.MapGet("/api/modules", async (AppDbContext db) =>
 app.MapPost("/api/modules", async (BackendApi.Models.Module newModule, AppDbContext db) =>
 {
     db.Modules.Add(newModule);
-    
+     
     await db.SaveChangesAsync();
     
     return Results.Created($"/api/modules/{newModule.Id}", newModule);

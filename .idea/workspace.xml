@@ -11,48 +11,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21521c15-41b0-4118-993b-3dc9b250d39f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Services/AuthService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BackendApi/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_activity_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_activity_activity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_annotation_annotation_experimental.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_annotation_annotation_experimental.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_appcompat_appcompat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_appcompat_appcompat.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_appcompat_appcompat_resources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_appcompat_appcompat_resources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_arch_core_core_runtime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_arch_core_core_runtime.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_constraintlayout_constraintlayout_core.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core_ktx.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core_ktx.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core_viewtree.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_core_core_viewtree.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_cursoradapter_cursoradapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_cursoradapter_cursoradapter.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_customview_customview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_customview_customview.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_drawerlayout_drawerlayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_drawerlayout_drawerlayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_emoji2_emoji2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_emoji2_emoji2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_emoji2_emoji2_views_helper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_emoji2_emoji2_views_helper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_fragment_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_fragment_fragment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_interpolator_interpolator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_interpolator_interpolator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_livedata_core.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_livedata_core.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_process.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_process.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_runtime_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_runtime_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_viewmodel_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_viewmodel_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_viewmodel_savedstate_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_lifecycle_lifecycle_viewmodel_savedstate_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_loader_loader.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_loader_loader.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_navigationevent_navigationevent_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_navigationevent_navigationevent_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_profileinstaller_profileinstaller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_profileinstaller_profileinstaller.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_savedstate_savedstate_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_savedstate_savedstate_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_startup_startup_runtime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_startup_startup_runtime.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_tracing_tracing_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_tracing_tracing_android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_vectordrawable_vectordrawable.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_vectordrawable_vectordrawable.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_vectordrawable_vectordrawable_animated.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_vectordrawable_vectordrawable_animated.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_versionedparcelable_versionedparcelable.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_versionedparcelable_versionedparcelable.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_viewpager_viewpager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/androidx_viewpager_viewpager.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/runtime_annotation_android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/libraries/runtime_annotation_android.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BDuckDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BDuckDB.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog.sln" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/DuckLog.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/DuckLog.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/ConnectionActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/ConnectionActivity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/MainActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/MainActivity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/ModuleActvity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/ModuleActvity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_connection.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_connection.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLogTests/.idea/.idea.DuckLogTests.dir/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/global.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BackendApi/BackendApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/BackendApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,10 +49,10 @@
     <setting file="file://$PROJECT_DIR$/DuckLog/DuckLog/TaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BackendApi/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -93,7 +71,8 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "DockerImplementation",
+    "git-widget-placeholder": "feature-user-login",
+    "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/ezazx/RiderProjects/tp1-rubber-ducker",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -101,6 +80,11 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
   }
 }]]></component>
   <component name="TaskManager">
@@ -124,23 +108,5 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

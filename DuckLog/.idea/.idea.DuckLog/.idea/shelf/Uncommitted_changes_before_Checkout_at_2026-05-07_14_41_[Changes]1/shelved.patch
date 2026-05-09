@@ -1,0 +1,18 @@
+Index: ../global.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"sdk\": {\r\n    \"version\": \"10.0.100\",\r\n    \"rollForward\": \"latestPatch\"\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../global.json b/../global.json
+--- a/../global.json	(revision 0f8d6c1e25517acecfc24c0be62d047e59e8c675)
++++ b/../global.json	(date 1778178824686)
+@@ -1,6 +1,6 @@
+ {
+   "sdk": {
+-    "version": "10.0.100",
++    "version": "10.0.203",
+     "rollForward": "latestPatch"
+   }
+ }

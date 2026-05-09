@@ -1,17 +1,21 @@
+using System.Diagnostics;
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using DuckLog.Api;
 using DuckLog.Models;
+using Activity = Android.App.Activity;
+
 namespace DuckLog;
 
 [Activity(Label = "Connexion")]
 class ConnectionActivity : Activity
 {
+    private readonly AuthService _authService = new AuthService();
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
         SetContentView(Resource.Layout.activity_connection);
-
         
         Android.Widget.Button connectionButton = FindViewById<Android.Widget.Button>(Resource.Id.connection_button);
         EditText emailInput = FindViewById<EditText>(Resource.Id.email_field); 
@@ -19,7 +23,7 @@ class ConnectionActivity : Activity
 
         if (connectionButton != null)
         {
-            connectionButton.Click += (sender, e) =>
+            connectionButton.Click += async (sender, e) =>
             {
                 string email = emailInput?.Text ?? string.Empty;
                 string password = passwordInput?.Text ?? string.Empty;
@@ -29,19 +33,22 @@ class ConnectionActivity : Activity
                     Toast.MakeText(this, "Veuillez remplir tous les champs", ToastLength.Short)?.Show();
                     return;
                 }
-                User authService = new User();
-                authService.ConnectUser(email, password);
+                
+                connectionButton.Enabled = false;
+                var user = await _authService.LoginAsync(email, password);
 
-                if (User.CurrentUser != null)
+                if (user != null)
                 {
-                    Toast.MakeText(this, $"Succès : {User.CurrentUser.Name}", ToastLength.Short)?.Show();
-                    
+                    User.CurrentUser = user;
+                    Toast.MakeText(this, $"Succès : {user.Name}", ToastLength.Short)?.Show();
                     Finish(); 
                 }
                 else
                 {
                     Toast.MakeText(this, "Email ou mot de passe incorrect", ToastLength.Long)?.Show();
                 }
+
+                connectionButton.Enabled = true;
             };
         }
     }

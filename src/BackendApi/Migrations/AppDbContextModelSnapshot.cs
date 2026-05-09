@@ -73,6 +73,33 @@ namespace BackendApi.Migrations
 
                     b.ToTable("Tasks");
                 });
+
+            modelBuilder.Entity("DuckLog.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("password_hash");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("app_user");
+                });
 #pragma warning restore 612, 618
         }
     }

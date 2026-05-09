@@ -29,4 +29,7 @@
     <string name="password_title">Password:</string>
     <string name="email_title">Email:</string>
     <string name="connection_button">Connect</string>
+    <string name="mainTitle">Ducklog</string>
+    <string name="btnLogin">Se Connecter</string>
+    <string name="btnRegister">Créer un compte</string>
 </resources>

@@ -1,5 +1,6 @@
-using BackendApi.Models;
+using DuckLog.Models;
 using Microsoft.EntityFrameworkCore;
+using Module = BackendApi.Models.Module;
 
 
 namespace BackendApi.Data;
@@ -11,4 +12,5 @@ public class AppDbContext : DbContext
     //represents table in database ex: Modules, Tasks, etc. 
     public DbSet<Module> Modules { get; set; }
     public DbSet<Models.Task> Tasks { get; set; }
+    public DbSet<User> Users { get; set; }
 }
