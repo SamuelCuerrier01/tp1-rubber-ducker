@@ -7,4 +7,5 @@ public class Module
     public string? Description { get; set; }
     public int TotalTasks { get; set; }
     public int CompletedTasks { get; set; }
+    public ICollection<Task> Tasks { get; set; } = new List<Task>();
 }

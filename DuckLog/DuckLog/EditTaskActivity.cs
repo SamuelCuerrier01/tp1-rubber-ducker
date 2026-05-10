@@ -1,4 +1,7 @@
 using System.Net.Http.Json;
+using System.Text.Json;
+using Android.Content;
+using Android.Views;
 using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog
@@ -13,8 +16,18 @@ namespace DuckLog
         /// <summary>
         /// Tâche en cours d'édition.
         /// </summary>
-        private Models.Task _task; 
+        private Models.Task _task;
+
         private int _taskId;
+
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
 
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
@@ -23,16 +36,14 @@ namespace DuckLog
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
         protected override async void OnCreate(Android.OS.Bundle? savedInstanceState)
         {
-            _taskId = Intent.GetIntExtra("taskId", 0);
-            
-            //get task from api
-            _task = await FetchTaskFromApi(_taskId);
 
-            ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
-
+            ActionBar?.Hide();
             SetContentView(Resource.Layout.activity_edit_task);
 
+            //get task from api
+            _taskId = Intent.GetIntExtra("taskId", 0);
+            
             EditText editName = FindViewById<EditText>(Resource.Id.editTaskName);
             EditText editDesc = FindViewById<EditText>(Resource.Id.editTaskDesc);
             EditText editTaskStart = FindViewById<EditText>(Resource.Id.editTaskStart);
@@ -40,6 +51,42 @@ namespace DuckLog
             Spinner spinner = FindViewById<Spinner>(Resource.Id.editTaskStatus);
             Button btnCreate = FindViewById<Button>(Resource.Id.btnCreateTask);
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+
+            if (btnReturn != null)
+            {
+                btnReturn.Click += (s, e) => Finish();
+            }
+
+            try
+            {
+                var response = await HttpClient.GetAsync($"/api/tasks/{_taskId}");
+                string rawJson = await response.Content.ReadAsStringAsync();
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    _task = JsonSerializer.Deserialize<Models.Task>(rawJson, options);
+                }
+                else
+                {
+                    Toast.MakeText(this, "Task not found on server.", ToastLength.Short).Show();
+                    Finish();
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                Toast.MakeText(this, "Network Error: Could not load task.", ToastLength.Short).Show();
+                Finish();
+                return;
+            }
+
+            if (_task == null)
+            {
+                Toast.MakeText(this, "Task not found.", ToastLength.Short).Show();
+                Finish();
+                return;
+            }
 
             TaskStatus newStatus = _task.Status;
             DateTime newStart = _task.StartDate;
@@ -49,19 +96,6 @@ namespace DuckLog
             editDesc.Text = _task.Description;
             editTaskStart.Text = _task.StartDate.ToString("dd/MM/yyyy");
             editTaskEnd.Text = _task.EndDate.ToString("dd/MM/yyyy");
-
-            if (_task != null)
-            {
-                editName.Text = _task.Name;
-                editDesc.Text = _task.Description;
-                editTaskStart.Text = _task.StartDate.ToString("dd/MM/yyyy");
-                editTaskEnd.Text = _task.EndDate.ToString("dd/MM/yyyy");
-            }
-            
-            if (btnReturn != null)
-            {
-                btnReturn.Click += (s, e) => Finish();
-            }
 
             editTaskStart.Click += (s, e) =>
             {
@@ -107,13 +141,15 @@ namespace DuckLog
 
             btnCreate.Click += async (s, e) =>
             {
-                string newName = editName?.Text ?? "";
-                string newDesc = editDesc?.Text ?? "";
-
-                if (string.IsNullOrWhiteSpace(newName) || string.IsNullOrWhiteSpace(newDesc) ||
-                    newStart == DateTime.MinValue || newEnd == DateTime.MinValue)
+                if (string.IsNullOrWhiteSpace(editName.Text) || string.IsNullOrWhiteSpace(editDesc.Text))
                 {
                     Toast.MakeText(this, "Please fill in all the fields", ToastLength.Short).Show();
+                    return;
+                }
+
+                if (newEnd < newStart)
+                {
+                    Toast.MakeText(this, "End date cannot be before start date", ToastLength.Short).Show();
                     return;
                 }
 
@@ -122,34 +158,25 @@ namespace DuckLog
                 _task.StartDate = newStart;
                 _task.EndDate = newEnd;
                 _task.Status = newStatus;
-                
-                try 
-                {
-                    using var httpClient = new HttpClient();
-                    httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
 
-                    // Use PUT to update existing data
-                    var response = await httpClient.PutAsJsonAsync($"/api/tasks/{_taskId}", _task);
+                try
+                {
+                    var response = await HttpClient.PutAsJsonAsync($"/api/tasks/{_taskId}", _task);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        Toast.MakeText(this, "Task Updated!", ToastLength.Short).Show();
                         Finish();
                     }
+                    else
+                    {
+                        Toast.MakeText(this, "Failed to update task on server.", ToastLength.Short).Show();
+                    }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Toast.MakeText(this, "Update failed", ToastLength.Short).Show();
+                    Toast.MakeText(this, "Network error during update.", ToastLength.Short).Show();
                 }
             };
         }
-        
-        //To fetch task from api
-        private async Task<Models.Task> FetchTaskFromApi(int id)
-        {
-            using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
-            return await client.GetFromJsonAsync<Models.Task>($"/api/tasks/{id}");
-        }
     }
-    
 }

@@ -9,4 +9,6 @@ public class Task
     public DateTime EndDate { get; set; }
     public required string Status { get; set; }
     public int ModuleId { get; set; }
+    
+    public Module? Module { get; set; }
 }

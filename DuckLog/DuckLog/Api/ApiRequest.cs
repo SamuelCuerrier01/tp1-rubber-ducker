@@ -13,15 +13,22 @@ namespace DuckLog.Api;
 
 public static class ApiRequest
 {
+    private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+    {
+        PooledConnectionLifetime = TimeSpan.Zero,
+        ConnectTimeout = TimeSpan.FromSeconds(15)
+    });
+    
     public static async Task Run(ModuleDemo module)
     {
+        
         ObservableCollection<ITask> tasks = module.GetTasks();
         string apiKey = "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";
         StringBuilder listeCompacte = new StringBuilder();
         foreach (var task in tasks)
         {
             listeCompacte.Append(
-                $"{task.Name}|{task.Description}|{task.StartDate.ToString("yyyy-MM-dd")}|{task.StartDate.ToString("yyyy-MM-dd")}, ");
+                $"{task.Name}|{task.Description}|{task.StartDate.ToString("yyyy-MM-dd")}|{task.EndDate.ToString("yyyy-MM-dd")}, ");
         }
         
         HttpClient client = new HttpClient();
@@ -45,36 +52,50 @@ public static class ApiRequest
         };
 
         var json = JsonSerializer.Serialize(body);
-
-        var response = await client.PostAsync(
-            "https://api.groq.com/openai/v1/chat/completions",
-            new StringContent(json, Encoding.UTF8, "application/json")
-        );
-
-        var responseString = await response.Content.ReadAsStringAsync();
-
-        using var doc = JsonDocument.Parse(responseString);
-        var content = doc
-            .RootElement
-            .GetProperty("choices")[0]
-            .GetProperty("message")
-            .GetProperty("content")
-            .GetString();
-        string[] infos = content.Split('|');
-        tasks[0].Description = content;
-
-        Console.WriteLine($"Name : {infos[0]}");
-        Console.WriteLine($"Desc : {infos[1]}");
-        Console.WriteLine($"Start : {infos[2]}");
-        Console.WriteLine($"End : {infos[3]}");
+    
+        var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://api.groq.com/openai/v1/chat/completions");
+        requestMessage.Headers.Add("Authorization", $"Bearer {apiKey}");
+        requestMessage.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
         try
         {
-            module.AddTask(new Models.Task(infos[0], infos[1], DateTime.Parse(infos[2]), DateTime.Parse(infos[3]), TaskStatus.Todo));
+            var response = await HttpClient.SendAsync(requestMessage);
+            
+            response.EnsureSuccessStatusCode(); 
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            using var doc = JsonDocument.Parse(responseString);
+            var content = doc
+                .RootElement
+                .GetProperty("choices")[0]
+                .GetProperty("message")
+                .GetProperty("content")
+                .GetString();
+
+            if (string.IsNullOrWhiteSpace(content))
+                throw new Exception("AI returned empty content.");
+
+            string[] infos = content.Split('|');
+            
+            if (infos.Length < 4)
+                throw new Exception("AI did not return the expected 4 parameters.");
+
+            string newName = infos[0].Trim();
+            string newDesc = infos[1].Trim();
+            DateTime newStart = DateTime.Parse(infos[2].Trim());
+            DateTime newEnd = DateTime.Parse(infos[3].Trim());
+
+            Console.WriteLine($"Name : {newName}");
+            Console.WriteLine($"Desc : {newDesc}");
+            Console.WriteLine($"Start : {newStart}");
+            Console.WriteLine($"End : {newEnd}");
+
+            module.AddTask(new Models.Task(newName, newDesc, newStart, newEnd, TaskStatus.Todo, module.Id));
         }
-        catch
+        catch (Exception ex)
         {
-            Console.WriteLine("La tache n'a pas pu être générée");
+            Console.WriteLine($"La tache n'a pas pu être générée: {ex.Message}");
             throw;
         }
     }

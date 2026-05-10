@@ -2,6 +2,7 @@ using System.Net.Http.Json;
 using Android.Content;
 using Android.Views;
 using DuckLog.Models;
+using System.Text.Json;
 
 namespace DuckLog
 {
@@ -9,7 +10,14 @@ namespace DuckLog
     public class ModuleActvity : Activity
     {
         // Create http client for network requests
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
 
         protected override void OnCreate(Bundle? savedInstanceState)
         {
@@ -18,7 +26,9 @@ namespace DuckLog
             {
                 HttpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
             }
-
+            
+            HttpClient.DefaultRequestHeaders.ConnectionClose = true;
+            
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_module);
@@ -53,24 +63,45 @@ namespace DuckLog
                 moduleListContainer.RemoveViewAt(0);
             }
             
-            try
+            System.Threading.Tasks.Task.Run(async () =>
             {
-                //Fetch the data from Docker
-                var fetchedModules = await HttpClient.GetFromJsonAsync<List<Module>>("/api/modules");
-
-                if (fetchedModules != null)
+                try
                 {
-                    foreach (var module in fetchedModules)
+                    var response = await HttpClient.GetAsync("/api/modules");
+                    string rawJson = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        LoadModuleCardUi(moduleListContainer, module); 
+                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        var fetchedModules = JsonSerializer.Deserialize<List<Module>>(rawJson, options);
+
+                        if (fetchedModules != null)
+                        {
+                            RunOnUiThread(() =>
+                            {
+                                foreach (var module in fetchedModules)
+                                {
+                                    LoadModuleCardUi(moduleListContainer, module); 
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        RunOnUiThread(() => Toast.MakeText(this, $"API Error: {response.StatusCode}", ToastLength.Long).Show());
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // If Docker is off or unreachable
-                Toast.MakeText(this, $"API Error: {ex.Message}", ToastLength.Long).Show();
-            }
+                catch (JsonException jsonEx)
+                {
+                    Android.Util.Log.Error("DUCKLOG", $"JSON Parse Error: {jsonEx.Message}");
+                    RunOnUiThread(() => Toast.MakeText(this, "Data Format Error. Check Logcat.", ToastLength.Long).Show());
+                }
+                catch (Exception ex)
+                {
+                    Android.Util.Log.Error("DUCKLOG", $"Network Error: {ex.Message}");
+                    RunOnUiThread(() => Toast.MakeText(this, "Network Connection Failed.", ToastLength.Long).Show());
+                }
+            });
         }
 
         private void LoadModuleCardUi(LinearLayout container, Module module)

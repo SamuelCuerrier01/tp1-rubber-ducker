@@ -11,6 +11,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.Parse("8.0.0-mysql")));
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
+
 var app = builder.Build();
 
 
@@ -31,7 +36,7 @@ app.MapPost("/api/modules", async (Module newModule, AppDbContext db) =>
     
     await db.SaveChangesAsync();
     
-    return Results.Created($"/api/modules/{newModule.Id}", newModule);
+    return Results.Ok();
 });
 
 //Create a task
@@ -53,6 +58,7 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
     task.StartDate = updatedTask.StartDate;
     task.EndDate = updatedTask.EndDate;
     task.Status = updatedTask.Status;
+    task.ModuleId = updatedTask.ModuleId;
 
     await db.SaveChangesAsync();
     return Results.NoContent();
@@ -60,8 +66,24 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
 
 //Get a precise module
 app.MapGet("/api/modules/{id}", async (int id, AppDbContext db) =>
-        await db.Modules.FindAsync(id) is { } m 
-        ? Results.Ok(m) 
-        : Results.NotFound());
+{
+    var module = await db.Modules
+        .Include(m => m.Tasks)
+        .FirstOrDefaultAsync(m => m.Id == id);
+
+    return module is not null ? Results.Ok(module) : Results.NotFound();
+});
+
+app.MapGet("/api/tasks/{id}", async (int id, AppDbContext db) =>
+{
+    var task = await db.Tasks.FindAsync(id);
+    
+    if (task is null) 
+    {
+        return Results.NotFound();
+    }
+    
+    return Results.Ok(task);
+});
 
 app.Run();

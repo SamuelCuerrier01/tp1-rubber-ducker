@@ -10,6 +10,14 @@ namespace DuckLog
     [Activity(Label = "Add Module Activity")]
     public class AddModuleActivity : Activity
     {
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les champs de saisie, les boutons et leurs événements.
@@ -17,6 +25,8 @@ namespace DuckLog
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
         protected override void OnCreate(Bundle? savedInstanceState)
         {
+            HttpClient.DefaultRequestHeaders.ConnectionClose = true;
+            
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
 
@@ -48,29 +58,27 @@ namespace DuckLog
                         return;
                     }
 
-
                     Module newModule = new Module(newName, newDesc);
+                    
                     try 
                     {
-                        // Client set up
-                        using var httpClient = new HttpClient();
-                        httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
-
-                        // Post module into api
-                        var response = await httpClient.PostAsJsonAsync("/api/modules", newModule);
+                        var response = await HttpClient.PostAsJsonAsync("/api/modules", newModule);
 
                         if (response.IsSuccessStatusCode)
                         {
-                            Finish(); //Close the screen if the database saved it
+                            Finish();
                         }
                         else
                         {
-                            Toast.MakeText(this, "Server Error: Could not save.", ToastLength.Long).Show();
+                            string errorDetails = await response.Content.ReadAsStringAsync();
+                            Android.Util.Log.Error("API_ERROR", $"Status: {response.StatusCode}, Details: {errorDetails}");
+                            Toast.MakeText(this, $"Error {response.StatusCode}: Check Logcat", ToastLength.Long).Show();
                         }
                     }
                     catch (Exception ex)
                     {
-                        Toast.MakeText(this, $"Connection failed: {ex.Message}", ToastLength.Long).Show();
+                        Android.Util.Log.Error("API_ERROR", $"Crash: {ex.Message}");
+                        Toast.MakeText(this, "Network timeout. Check Logcat.", ToastLength.Long).Show();
                     }
                 };
             }

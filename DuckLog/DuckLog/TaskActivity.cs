@@ -2,7 +2,8 @@ using Android.Content;
 using Android.Views;
 using DuckLog.Models;
 using System.Net.Http.Json;
-using Task = DuckLog.Models.Task;
+using System.Text.Json;
+using Task = System.Threading.Tasks.Task;
 
 namespace DuckLog
 {
@@ -16,51 +17,41 @@ namespace DuckLog
         /// <summary>
         /// Module dont les tâches sont affichées.
         /// </summary>
-        public Module module;
-
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private Module module;
+        private int _moduleId;
         
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override async void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override async void OnCreate(Bundle? savedInstanceState)
         {
-            int moduleId = Intent.GetIntExtra("moduleId", 0);
-            try 
-            {
-                using var client = new HttpClient { BaseAddress = new Uri(Constants.BaseApiUrl) };
-                module = await client.GetFromJsonAsync<Module>($"/api/modules/{moduleId}");
-                List<Task> tasks = await client.GetFromJsonAsync<List<Task>>($"/api/tasks/{moduleId}");
-            }
-            catch (Exception ex)
-            {
-                Toast.MakeText(this, "Module not found in database", ToastLength.Short).Show();
-                Finish();
-                return;
-            }
-            if (module == null)
-            {
-                Toast.MakeText(this, "Error: module not found", ToastLength.Short).Show();
-                Finish();
-                return;
-            }
-
+            HttpClient.DefaultRequestHeaders.ConnectionClose = true;
+            
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
+            
             SetContentView(Resource.Layout.activity_task);
+            
+            _moduleId = Intent.GetIntExtra("moduleId", 0);
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
-
-            LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
-
+            
             RelativeLayout btnAddTaskArea = FindViewById<RelativeLayout>(Resource.Id.btnAddTaskArea);
 
             btnAddTaskArea.Click += (sender, e) =>
             {
                 Intent intent = new Intent(this, typeof(AddTaskActivity));
-                intent.PutExtra("moduleId", module.Id);
+                intent.PutExtra("moduleId", _moduleId);
                 StartActivity(intent);
             };
 
@@ -68,19 +59,50 @@ namespace DuckLog
             {
                 btnReturn.Click += (sender, e) => Finish();
             }
-
-            TextView taskHeaderText = FindViewById<TextView>(Resource.Id.taskHeaderText);
-            taskHeaderText.Text = $"{module.Name} Tasks";
         }
 
         /// <summary>
         /// Méthode appelée lors de la reprise de l'activité.
         /// Rafraîchit la liste des tâches affichées.
         /// </summary>
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
+            await LoadModuleDataAsync();
+        }
+        
+        private async System.Threading.Tasks.Task LoadModuleDataAsync()
+        {
+            try 
+            {
+                var response = await HttpClient.GetAsync($"/api/modules/{_moduleId}");
+                string rawJson = await response.Content.ReadAsStringAsync();
+        
+                if (response.IsSuccessStatusCode)
+                {
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    module = JsonSerializer.Deserialize<Module>(rawJson, options);
 
+                    if (module != null)
+                    {
+                        TextView taskHeaderText = FindViewById<TextView>(Resource.Id.taskHeaderText);
+                        taskHeaderText.Text = $"{module.Name} Tasks";
+                        RefreshTaskList();
+                    }
+                }
+            }
+            catch (JsonException jsonEx)
+            {
+                Android.Util.Log.Error("DUCKLOG", $"JSON Parse Error: {jsonEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "An unexpected error occurred", ToastLength.Short).Show();
+            }
+        }
+        
+        private void RefreshTaskList()
+        {
             LinearLayout taskListContainer = FindViewById<LinearLayout>(Resource.Id.taskListContainer);
 
             while (taskListContainer.ChildCount > 1)

@@ -15,7 +15,16 @@ namespace DuckLog
         /// Module auquel la tâche sera ajoutée.
         /// </summary>
         private int _moduleId;
-
+        
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
+        
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les champs de formulaire, les boutons et le spinner de statut.
@@ -23,10 +32,10 @@ namespace DuckLog
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            _moduleId = Intent.GetIntExtra("moduleId", 0);
-
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
+            
+            _moduleId = Intent.GetIntExtra("moduleId", 0);
 
             SetContentView(Resource.Layout.activity_add_task);
 
@@ -121,11 +130,7 @@ namespace DuckLog
                 
                 try 
                 {
-                    using var httpClient = new HttpClient();
-                    httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
-                    
-                    //Post to add task into api
-                    var response = await httpClient.PostAsJsonAsync("/api/modules/tasks", newTask);
+                    var response = await HttpClient.PostAsJsonAsync("/api/tasks", newTask);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -133,11 +138,14 @@ namespace DuckLog
                     }
                     else
                     {
-                        Toast.MakeText(this, "Server Error: Could not save.", ToastLength.Long).Show();
+                        string errorDetails = await response.Content.ReadAsStringAsync();
+    
+                        Android.Util.Log.Error("API_ERROR", $"Status: {response.StatusCode}, Details: {errorDetails}");
+    
+                        Toast.MakeText(this, $"Error {response.StatusCode}: Check Logcat", ToastLength.Long).Show();
                     }
-                    
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Toast.MakeText(this, "Network Error", ToastLength.Short).Show();
                 }

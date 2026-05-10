@@ -78,7 +78,25 @@ namespace BackendApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModuleId");
+
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("BackendApi.Models.Task", b =>
+                {
+                    b.HasOne("BackendApi.Models.Module", "Module")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("BackendApi.Models.Module", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }
