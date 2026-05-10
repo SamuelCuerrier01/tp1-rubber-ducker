@@ -19,10 +19,10 @@ public static class ApiRequest
         ConnectTimeout = TimeSpan.FromSeconds(15)
     });
     
-    public static async Task Run(ModuleDemo module)
+    public static async Task Run(Module module)
     {
         
-        ObservableCollection<ITask> tasks = module.GetTasks();
+        var tasks = module.GetTasks();
         string apiKey = "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";
         StringBuilder listeCompacte = new StringBuilder();
         foreach (var task in tasks)

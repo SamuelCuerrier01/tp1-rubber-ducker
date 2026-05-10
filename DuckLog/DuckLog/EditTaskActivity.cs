@@ -146,6 +146,18 @@ namespace DuckLog
                     Toast.MakeText(this, "Please fill in all the fields", ToastLength.Short).Show();
                     return;
                 }
+                
+                if (newStart < DateTime.Today)
+                {
+                    Toast.MakeText(this, "Start date cannot be in the past", ToastLength.Short).Show();
+                    return;
+                }
+
+                if (newEnd < DateTime.Today)
+                {
+                    Toast.MakeText(this, "End date cannot be in the past", ToastLength.Short).Show();
+                    return;
+                }
 
                 if (newEnd < newStart)
                 {

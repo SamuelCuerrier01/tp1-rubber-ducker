@@ -3,6 +3,7 @@ using Android.Views;
 using DuckLog.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
+using DuckLog.Api;
 using Task = System.Threading.Tasks.Task;
 
 namespace DuckLog
@@ -28,6 +29,7 @@ namespace DuckLog
         {
             BaseAddress = new Uri(Constants.BaseApiUrl) 
         };
+        
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les boutons, l'en-tête et la logique d'ajout de tâche.
@@ -45,6 +47,7 @@ namespace DuckLog
             _moduleId = Intent.GetIntExtra("moduleId", 0);
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
+            ImageButton btnGenerate = FindViewById<ImageButton>(Resource.Id.btnGenerate);
             
             RelativeLayout btnAddTaskArea = FindViewById<RelativeLayout>(Resource.Id.btnAddTaskArea);
 
@@ -58,6 +61,29 @@ namespace DuckLog
             if (btnReturn != null)
             {
                 btnReturn.Click += (sender, e) => Finish();
+            }
+            
+            if (btnGenerate != null)
+            {
+                btnGenerate.Click += async (sender, e) =>
+                {
+                    Toast.MakeText(this, "Generating task...", ToastLength.Short).Show();
+                    btnGenerate.SetImageResource(Resource.Drawable.loading);
+
+                    try
+                    {
+                        await ApiRequest.Run(module);
+                        await LoadModuleDataAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Toast.MakeText(this, $"Generation failed: {ex.Message}", ToastLength.Long).Show();
+                    }
+                    finally
+                    {
+                        btnGenerate.SetImageResource(Resource.Drawable.generate_btn);
+                    }
+                };
             }
         }
 

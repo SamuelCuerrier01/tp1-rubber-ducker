@@ -26,6 +26,11 @@ var app = builder.Build();
 app.MapGet("/api/modules", async (AppDbContext db) =>
 {
     var modules = await db.Modules.ToListAsync();
+    foreach (var m in modules)
+    {
+        m.TotalTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id);
+        m.CompletedTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id && t.Status == "Done");
+    }
     return Results.Ok(modules);
 });
 
@@ -74,6 +79,7 @@ app.MapGet("/api/modules/{id}", async (int id, AppDbContext db) =>
     return module is not null ? Results.Ok(module) : Results.NotFound();
 });
 
+//get a precise task
 app.MapGet("/api/tasks/{id}", async (int id, AppDbContext db) =>
 {
     var task = await db.Tasks.FindAsync(id);
@@ -84,6 +90,13 @@ app.MapGet("/api/tasks/{id}", async (int id, AppDbContext db) =>
     }
     
     return Results.Ok(task);
+});
+
+//Get the tasks of a module
+app.MapGet("/api/modules/{id}/tasks", async (int id, AppDbContext db) =>
+{
+    var tasks = await db.Tasks.Where(t => t.ModuleId == id).ToListAsync();
+    return Results.Ok(tasks);
 });
 
 app.Run();
