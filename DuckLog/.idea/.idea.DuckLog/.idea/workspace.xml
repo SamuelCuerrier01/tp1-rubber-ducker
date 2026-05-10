@@ -70,20 +70,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea0dc647-85e1-4c6f-a184-a9740986a814" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Directory.Build.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/BackendApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/BackendApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +243,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Android.DuckLog">
+  <component name="RunManager" selected=".NET Launch Settings Profile.BackendApi: http">
     <configuration name="DuckLogTests" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
