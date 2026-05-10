@@ -3,23 +3,28 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Database config
+// Allow physical devices on the same network to reach the API.
+builder.WebHost.UseUrls("http://0.0.0.0:5277");
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Missing connection string 'DefaultConnection'.")));
+
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 
-//dotnet ef database update --> use it in terminal,
-//we must use it every time after a pull from github so database is synced
+app.MapControllers();
 
-//Get all modules
 app.MapGet("/api/modules", async (AppDbContext db) =>
 {
     var modules = await db.Modules.ToListAsync();
     return Results.Ok(modules);
 });
 
-//Create a module
 app.MapPost("/api/modules", async (BackendApi.Models.Module newModule, AppDbContext db) =>
 {
     db.Modules.Add(newModule);
@@ -29,7 +34,6 @@ app.MapPost("/api/modules", async (BackendApi.Models.Module newModule, AppDbCont
     return Results.Created($"/api/modules/{newModule.Id}", newModule);
 });
 
-//Create a task
 app.MapPost("/api/tasks", async (BackendApi.Models.Task newTask, AppDbContext db) =>
 {
     db.Tasks.Add(newTask);
@@ -37,7 +41,6 @@ app.MapPost("/api/tasks", async (BackendApi.Models.Task newTask, AppDbContext db
     return Results.Created($"/api/tasks/{newTask.Id}", newTask);
 });
 
-//Update task
 app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask, AppDbContext db) =>
 {
     var task = await db.Tasks.FindAsync(id);
@@ -52,11 +55,5 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
     await db.SaveChangesAsync();
     return Results.NoContent();
 });
-
-//Get a precise module
-app.MapGet("/api/modules/{id}", async (int id, AppDbContext db) =>
-    await db.Modules.FindAsync(id) is BackendApi.Models.Module m 
-        ? Results.Ok(m) 
-        : Results.NotFound());
 
 app.Run();

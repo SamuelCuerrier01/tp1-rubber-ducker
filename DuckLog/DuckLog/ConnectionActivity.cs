@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using DuckLog.Api;
+using DuckLog.Services;
 using DuckLog.Models;
 using Activity = Android.App.Activity;
 
@@ -26,8 +26,8 @@ class ConnectionActivity : Activity
         {
             connectionButton.Click += async (sender, e) =>
             {
-                string email = emailInput?.Text ?? string.Empty;
-                string password = passwordInput?.Text ?? string.Empty;
+                    string email = emailInput?.Text?.ToString().Trim() ?? string.Empty;
+                    string password = passwordInput?.Text?.ToString().Trim() ?? string.Empty;
 
                 if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 {
@@ -44,7 +44,7 @@ class ConnectionActivity : Activity
                     {
                         User.CurrentUser = user;
                         Toast.MakeText(this, $"Succès : {user.Name}", ToastLength.Short)?.Show();
-                        Finish();
+                        StartActivity(typeof(ModuleActvity));
                     }
                     else
                     {

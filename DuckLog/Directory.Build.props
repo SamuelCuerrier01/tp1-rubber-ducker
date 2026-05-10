@@ -1,0 +1,5 @@
+﻿<Project>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' and '$(AndroidSdkDirectory)' == ''">
+    <AndroidSdkDirectory>C:\Android\android-sdk</AndroidSdkDirectory>
+  </PropertyGroup>
+</Project>

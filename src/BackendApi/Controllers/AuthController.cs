@@ -1,27 +1,36 @@
-﻿using Dapper;
-using DuckLog.Models;
+﻿using BackendApi.Data;
+using BackendApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
+
+namespace BackendApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    // The Backend uses the connection string from appsettings.json
-    private readonly string _connectionString = "Server=localhost;Database=BDuckDB;Uid=root;Pwd=;";
+    private readonly AppDbContext _context;
+
+    public AuthController(AppDbContext context)
+    {
+        _context = context;
+    }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] User loginRequest)
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        using var connection = new MySqlConnection(_connectionString);
-        string sql = "SELECT id, name, email, password_hash as PasswordHash FROM app_user WHERE email = @Email";
-        var userFromDb = connection.QueryFirstOrDefault<User>(sql, new { Email = loginRequest.Email });
+        var email = (loginRequest.Email ?? string.Empty).Trim();
+        var password = (loginRequest.Password ?? string.Empty).Trim();
 
-        if (userFromDb == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, userFromDb.PasswordHash))
-        {
-            return Unauthorized("Invalid email or password.");
-        }
+        Console.WriteLine($"Login attempt for: {email}");
+        
+        var user = await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+        
+        if (user == null || user.PasswordHash.Trim() != password)
+            return Unauthorized(new { message = "Email ou mot de passe incorrect" });
 
-        return Ok(userFromDb);
+        return Ok(user); 
     }
 }

@@ -70,22 +70,95 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea0dc647-85e1-4c6f-a184-a9740986a814" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Migrations/20260509200034_AddUserLoginTable.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Migrations/20260509200034_AddUserLoginTable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Directory.Build.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Constants.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotChats">
+    <option name="panelChat">
+      <chat>
+        <option name="activeSessionId" value="c7408090-2283-42fa-a8c1-878f41e59eac" />
+        <option name="sessions">
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="09678bcb-cfd3-4f40-b97d-32f56432a14c" />
+            <option name="modeId" value="Agent" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="status" value="Completed" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="beddbfc5-c2db-42a5-8741-16398ffe9d85" />
+            <option name="modeId" value="Agent" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="b5daddcc-b252-4391-acc7-831cca48b4d4" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="83152b91-c86b-4558-84cf-7aaedb97de4e" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="8182cca3-6268-4cba-a92f-2b4ead4d7eee" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="c7408090-2283-42fa-a8c1-878f41e59eac" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+        </option>
+        <option name="type" value="PANEL" />
+      </chat>
+    </option>
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/eva/Documents/cegep/methodeAgiles/tp1-rubber-ducker/DuckLog" value="3CAy9HmPzaabXD1CzuXaru2b6il" />
+    </persistenceIdMap>
+  </component>
+  <component name="CopilotUserSelectedModel">
+    <selectedModels>
+      <entry key="agent-panel" value="Auto" />
+      <entry key="chat-panel" value="Auto" />
+    </selectedModels>
   </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
@@ -113,6 +186,7 @@
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Models/Module.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Models/Task.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../src/BackendApi/Models/User.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="InvalidFacetManager">
     <ignored-facets>
@@ -135,36 +209,51 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Ask" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="LOCAL" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.BackendApi: http.executor": "Run",
-    ".NET Launch Settings Profile.BackendApi: https.executor": "Run",
-    ".NET Project.DuckLogTests.executor": "Run",
-    "Android.DuckLog.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "feature-user-login",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "device.explorer",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.BackendApi: http.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.BackendApi: https.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.DuckLogTests.executor&quot;: &quot;Run&quot;,
+    &quot;Android.DuckLog.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;copilot.sensitive.folder.allow.file_read.C:/Users/eva/Documents/cegep/methodeAgiles/tp1-rubber-ducker/src/BackendApi&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-user-login&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSettingsPageId&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Android.DuckLog">
     <configuration name="DuckLogTests" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -254,7 +343,12 @@
       <workItem from="1778181099504" duration="3314000" />
       <workItem from="1778347048542" duration="13571000" />
       <workItem from="1778430870618" duration="287000" />
-      <workItem from="1778431179822" duration="3589000" />
+      <workItem from="1778431179822" duration="3693000" />
+      <workItem from="1778434916835" duration="2897000" />
+      <workItem from="1778437863042" duration="700000" />
+      <workItem from="1778438587827" duration="255000" />
+      <workItem from="1778438876605" duration="431000" />
+      <workItem from="1778439343583" duration="3370000" />
     </task>
     <task id="LOCAL-00001" summary="Docker Initial Commit">
       <option name="closed" value="true" />
@@ -298,5 +392,13 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

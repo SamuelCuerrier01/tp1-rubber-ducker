@@ -11,26 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21521c15-41b0-4118-993b-3dc9b250d39f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Services/AuthService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackendApi/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BDuckDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BDuckDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/ConnectionActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/ConnectionActivity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/MainActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/MainActivity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/ModuleActvity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/ModuleActvity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog/Resources/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BackendApi/BackendApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/BackendApi.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BackendApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackendApi/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
