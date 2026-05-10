@@ -9,7 +9,7 @@ public class AuthService
 
     public AuthService()
     {
-        _httpClient = new HttpClient { BaseAddress = new Uri("https://10.0.2.2:7001/") };
+        _httpClient = new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5277/") };
     }
 
     public async Task<User?> LoginAsync(string email, string password)
@@ -17,7 +17,7 @@ public class AuthService
         try
         {
             var loginData = new { Email = email, Password = password };
-            var response = await _httpClient.PostAsJsonAsync("api/user/login", loginData);
+            var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginData);
 
             if (response.IsSuccessStatusCode)
             {

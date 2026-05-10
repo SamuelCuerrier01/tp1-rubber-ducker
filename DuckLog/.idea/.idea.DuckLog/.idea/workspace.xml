@@ -70,9 +70,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea0dc647-85e1-4c6f-a184-a9740986a814" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Migrations/20260509200034_AddUserLoginTable.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/BackendApi/Migrations/20260509200034_AddUserLoginTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../global.json" beforeDir="false" afterPath="$PROJECT_DIR$/../global.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Services/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +106,9 @@
     <setting file="file://$PROJECT_DIR$/DuckLog/MainActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/ModuleActvity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/TaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Models/Module.cs" root0="FORCE_HIGHLIGHTING" />
@@ -121,6 +132,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="3CAy9HmPzaabXD1CzuXaru2b6il" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -141,12 +155,13 @@
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "feature-user-login",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "device.explorer",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -237,6 +252,9 @@
       <workItem from="1778173432676" duration="45000" />
       <workItem from="1778179442385" duration="1601000" />
       <workItem from="1778181099504" duration="3314000" />
+      <workItem from="1778347048542" duration="13571000" />
+      <workItem from="1778430870618" duration="287000" />
+      <workItem from="1778431179822" duration="3589000" />
     </task>
     <task id="LOCAL-00001" summary="Docker Initial Commit">
       <option name="closed" value="true" />
@@ -276,5 +294,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
