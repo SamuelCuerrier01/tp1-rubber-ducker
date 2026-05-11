@@ -58,7 +58,10 @@ namespace DuckLog
                 RequestPermissions(new string[] { Android.Manifest.Permission.PostNotifications }, 0);
             }
             
-            NotificationHelper.CheckAndNotifyAll(this);
+            if (User.CurrentUser != null)
+            {
+                NotificationHelper.CheckAndNotifyAll(this);
+            }
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
             RelativeLayout btnAddModuleArea = FindViewById<RelativeLayout>(Resource.Id.btnAddModuleArea);

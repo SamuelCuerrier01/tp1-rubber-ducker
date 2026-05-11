@@ -89,6 +89,9 @@ namespace DuckLog.Notifications
         /// <param name="context">Contexte Android.</param>
         public async static void CheckAndNotifyAll(Context context)
         {
+            if (User.CurrentUser == null)
+                return;
+
             Console.WriteLine("Ici check");
 
             DateTime now = DateTime.Now;
