@@ -1,5 +1,8 @@
 using Android.Views;
-
+using Android.Views;
+using Android.Views.InputMethods;
+using Android.Runtime;
+using Java.Lang;
 namespace DuckLog
 {
     public class SwipeTouchListener : Java.Lang.Object, View.IOnTouchListener

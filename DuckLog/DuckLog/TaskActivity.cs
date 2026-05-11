@@ -3,6 +3,7 @@ using Android.Views;
 using DuckLog.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Android.Util;
 using DuckLog.Api;
 using Task = DuckLog.Models.Task;
 using TaskStatus = DuckLog.Models.TaskStatus;
@@ -177,6 +178,32 @@ namespace DuckLog
             }
             
             txtEnd.Text = "End : " + task.EndDate.ToString("dd/MM/yyyy");
+            
+            FrameLayout frameLayout = taskCard as FrameLayout; 
+            LinearLayout deleteBackground = null;
+            LinearLayout taskCardContent = null;
+
+            if (frameLayout != null && frameLayout.ChildCount >= 2)
+            {
+                deleteBackground = frameLayout.GetChildAt(0) as LinearLayout;
+                taskCardContent = frameLayout.GetChildAt(1) as LinearLayout;
+            }
+
+            if (taskCardContent != null && deleteBackground != null)
+            {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                WindowManager?.DefaultDisplay?.GetMetrics(displayMetrics);
+                int screenWidth = displayMetrics.WidthPixels;
+
+                SwipeGestureListener swipeListener = new SwipeGestureListener(taskCardContent, deleteBackground, screenWidth);
+
+                swipeListener.OnSwipeToDelete += () =>
+                {
+                    ShowDeleteTaskConfirmationDialog((Task)task);
+                };
+
+                taskCard.SetOnTouchListener(new SwipeTouchListener(swipeListener));
+            }
 
             int insertIndex = container.ChildCount - 1;
             container.AddView(taskCard, insertIndex);
@@ -187,6 +214,48 @@ namespace DuckLog
                 intent.PutExtra("taskId", task.Id);
                 StartActivity(intent);
             };
+        }
+        
+        private async System.Threading.Tasks.Task DeleteTask(Task task)
+        {
+            Console.WriteLine("Deleting task id = " + task.Id);
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/tasks/{task.Id}")
+            {
+                Content = new StringContent("")
+            };
+
+            var response = await HttpClient.SendAsync(request);
+            var body = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"STATUS: {response.StatusCode}");
+            Console.WriteLine($"BODY: {body}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Toast.MakeText(this, $"Delete failed: {response.StatusCode}", ToastLength.Long).Show();
+                return;
+            }
+
+            Toast.MakeText(this, $"Task '{task.Name}' supprimée", ToastLength.Short).Show();
+
+            await LoadModuleDataAsync();
+        }
+        
+        private void ShowDeleteTaskConfirmationDialog(Task task)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Delete Task");
+            builder.SetMessage($"Tu veux supprimer '{task.Name}' ?");
+
+            builder.SetPositiveButton("Oui", async (_, __) =>
+            {
+                await DeleteTask(task);
+            });
+
+            builder.SetNegativeButton("Non", (_, __) => { });
+
+            builder.Show();
         }
     }
 }

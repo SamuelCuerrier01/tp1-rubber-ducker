@@ -184,23 +184,38 @@ namespace DuckLog
             };
         }
         
-        private void ShowDeleteConfirmationDialog(ModuleDemo module, View moduleCard, LinearLayout container)
+        private void ShowDeleteConfirmationDialog(Module module, View moduleCard, LinearLayout container)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Delete Module");
             builder.SetMessage($"Est-tu sûr de vouloir supprimer le module '{module.Name}'?");
             
-            builder.SetPositiveButton("Oui", (_, __) =>
+            builder.SetPositiveButton("Oui", async (_, __) =>
             {
-                FakeModuleDatabase.MyModules.Remove(module);
+                Console.WriteLine("Deleting module id = " + module.Id);
+
+                var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/modules/{module.Id}")
+                {
+                    Content = new StringContent("") // forces Content-Type
+                };
                 
-                // Animation de disparition du module
+                var response = await HttpClient.SendAsync(request);
+                var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"STATUS: {response.StatusCode}");
+                Console.WriteLine($"BODY: {body}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Toast.MakeText(this, $"Delete failed: {response.StatusCode}", ToastLength.Long).Show();
+                    return;
+                }
+
                 moduleCard.Animate()
                     .Alpha(0f)
                     .SetDuration(300)
                     .SetListener(new RemoveViewAction(container, moduleCard))
                     .Start();
-                
+
                 Toast.MakeText(this, $"Module '{module.Name}' Supprimé", ToastLength.Short).Show();
             });
             

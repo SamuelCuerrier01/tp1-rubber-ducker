@@ -18,10 +18,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 var app = builder.Build();
 
-
-//dotnet ef database update --> use it in terminal,
-//we must use it every time after a pull from GitHub so database is synced
-
 //Get all modules
 app.MapGet("/api/modules", async (AppDbContext db) =>
 {
@@ -104,6 +100,30 @@ app.MapGet("/api/modules/{id}/tasks", async (int id, AppDbContext db) =>
 {
     var tasks = await db.Tasks.Where(t => t.ModuleId == id).ToListAsync();
     return Results.Ok(tasks);
+});
+
+//delete a module
+app.MapDelete("/api/modules/{id}", async (int id, AppDbContext db) =>
+{
+    var module = await db.Modules.FindAsync(id);
+    if (module is null) return Results.NotFound();
+
+    db.Modules.Remove(module);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
+//delete a task
+app.MapDelete("/api/tasks/{id}", async (int id, AppDbContext db) =>
+{
+    var task = await db.Tasks.FindAsync(id);
+    if (task is null) return Results.NotFound();
+
+    db.Tasks.Remove(task);
+    await db.SaveChangesAsync();
+
+    return Results.NoContent();
 });
 
 app.Run();

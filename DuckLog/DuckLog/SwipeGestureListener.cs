@@ -1,114 +1,96 @@
 using Android.Views;
+using Android.Widget;
 
 namespace DuckLog
 {
     public class SwipeGestureListener : Java.Lang.Object
     {
         private const int SwipeThreshold = 100;
-        
-        private LinearLayout? _moduleCardContent;
-        private LinearLayout? _deleteBackground;
+
+        private readonly LinearLayout _moduleCardContent;
+        private readonly LinearLayout _deleteBackground;
+        private readonly int _screenWidth;
+
         private float _initialX;
         private bool _isSwipingLeft;
-        private readonly int _screenWidth;
-        
+
         public delegate void OnSwipeToDeleteDelegate();
         public event OnSwipeToDeleteDelegate? OnSwipeToDelete;
-        
+
         public SwipeGestureListener(LinearLayout moduleCardContent, LinearLayout deleteBackground, int screenWidth)
         {
             _moduleCardContent = moduleCardContent;
             _deleteBackground = deleteBackground;
             _screenWidth = screenWidth;
-            _isSwipingLeft = false;
         }
-        
+
         public bool HandleTouchEvent(MotionEvent? e)
         {
-            if (e == null)
-            {
-                return false;
-            }
-            
+            if (e == null) return false;
+
             switch (e.Action)
             {
                 case MotionEventActions.Down:
                     _initialX = e.GetX();
                     _isSwipingLeft = false;
-                    return true;
-                    
+                    return false; // ne bloque pas le clic
+
                 case MotionEventActions.Move:
                     float deltaX = e.GetX() - _initialX;
-                    
-                    if (deltaX < -SwipeThreshold)
+
+                    // Si on dépasse le seuil → c'est un swipe, on bloque le clic
+                    if (Math.Abs(deltaX) > SwipeThreshold)
                     {
-                        _isSwipingLeft = true;
-                        
-                        // Calculer la translationX en fonction du déplacement, mais ne pas dépasser la largeur de l'écran
-                        float translationX = deltaX;
-                        if (translationX < -_screenWidth) translationX = -_screenWidth;
-                        
-                        if (_moduleCardContent != null)
-                        {
-                            _moduleCardContent.TranslationX = translationX;
-                        }
-                        
-                        // Montrer le fond de suppression si on commence à swiper vers la gauche
-                        if (_deleteBackground != null)
-                        {
-                            _deleteBackground.Visibility = ViewStates.Visible;
-                        }
+                        _isSwipingLeft = deltaX < 0;
+
+                        float translationX = Math.Max(deltaX, -_screenWidth);
+                        _moduleCardContent.TranslationX = translationX;
+
+                        _deleteBackground.Visibility = ViewStates.Visible;
+
+                        return true; // IMPORTANT : bloque le clic
                     }
-                    else if (_isSwipingLeft && deltaX > -SwipeThreshold / 2.0f)
-                    {
-                        // Réinitialiser la position si l'utilisateur revient en arrière après avoir commencé à swiper
-                        ResetSwipe(animated: true);
-                    }
-                    return true;
-                    
+
+                    return false; // petit mouvement → clic possible
+
                 case MotionEventActions.Up:
                 case MotionEventActions.Cancel:
-                    if (_isSwipingLeft && _moduleCardContent != null)
-                    {
-                        float translationX = _moduleCardContent.TranslationX;
-                        
-                        // Si le swipe dépasse la moitié de la largeur de l'écran, déclencher la suppression
-                        if (translationX < -_screenWidth * 0.5f)
-                        {
-                            OnSwipeToDelete?.Invoke();
-                        }
-                        else
-                        {
-                            // Remet l'animation à zéro (position initale)
-                            ResetSwipe();
-                        }
-                    }
-                    _isSwipingLeft = false;
-                    return true;
+
+                    // Si ce n'était PAS un swipe → laisser passer le clic
+                    if (!_isSwipingLeft)
+                        return false;
+
+                    // Si c'était un swipe → gérer la suppression
+                    float finalX = _moduleCardContent.TranslationX;
+
+                    if (finalX < -_screenWidth * 0.5f)
+                        OnSwipeToDelete?.Invoke();
+                    else
+                        ResetSwipe();
+
+                    return true; // IMPORTANT : empêche le clic après un swipe
             }
-            
+
             return false;
         }
+
+
         private void ResetSwipe(bool animated = true)
         {
             if (animated)
             {
-                _moduleCardContent?.Animate()
+                _moduleCardContent.Animate()
                     .TranslationX(0)
-                    .SetDuration(600)
+                    .SetDuration(200)
                     .Start();
             }
-            else if (_moduleCardContent != null)
+            else
             {
                 _moduleCardContent.TranslationX = 0;
             }
 
-            if (_deleteBackground != null)
-                _deleteBackground.Visibility = ViewStates.Gone;
-
+            _deleteBackground.Visibility = ViewStates.Gone;
             _isSwipingLeft = false;
         }
     }
 }
-
-
