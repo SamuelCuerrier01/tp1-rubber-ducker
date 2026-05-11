@@ -75,20 +75,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea0dc647-85e1-4c6f-a184-a9740986a814" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DuckLog/AddUserActivity.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_add_user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/MainActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/MainActivity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckLog/Resources/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Resources/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +176,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/DuckLog/AddModuleActivity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/AddTaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DuckLog/AddUserActivity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/EditTaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/MainActivity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -366,7 +357,9 @@
       <workItem from="1778502742277" duration="160000" />
       <workItem from="1778502935741" duration="217000" />
       <workItem from="1778503179781" duration="50000" />
-      <workItem from="1778503274118" duration="6334000" />
+      <workItem from="1778503274118" duration="6835000" />
+      <workItem from="1778511479001" duration="16000" />
+      <workItem from="1778511532768" duration="1076000" />
     </task>
     <task id="LOCAL-00001" summary="Docker Initial Commit">
       <option name="closed" value="true" />

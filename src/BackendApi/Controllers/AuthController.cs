@@ -20,16 +20,20 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        var email = (loginRequest.Email).Trim();
-        var password = (loginRequest.Password).Trim();
+        var email = loginRequest.Email.Trim();
+        var password = loginRequest.Password.Trim();
 
-        Console.WriteLine($"Login attempt for: {email}");
-        
         var user = await _context.Users
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
-        
-        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            .FirstOrDefaultAsync(u => u.Email == email);
+
+        if (user == null) {
+            return Unauthorized(new { message = "Email ou mot de passe incorrect" });
+        }
+
+        bool isMatch = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+
+        if (!isMatch)
             return Unauthorized(new { message = "Email ou mot de passe incorrect" });
 
         return Ok(user); 

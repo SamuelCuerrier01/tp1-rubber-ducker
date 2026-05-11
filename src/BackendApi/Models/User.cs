@@ -15,6 +15,9 @@ public class User
 
     [Column("email")]
     public string Email { get; set; } = string.Empty;
+    
+    [NotMapped]
+    public string Password { get; set; } = string.Empty;
 
     [Column("password_hash")]
     public string PasswordHash { get; set; } = string.Empty;

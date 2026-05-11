@@ -58,12 +58,22 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
 
 app.MapPost("/api/users", async (BackendApi.Models.User newUser, AppDbContext db) =>
 {
-    newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
+    string rawPassword = newUser.Password?.Trim();
+
+    if (string.IsNullOrWhiteSpace(rawPassword))
+    {
+        return Results.BadRequest("Password is required.");
+    }
+
+    newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(rawPassword);
+
     db.Users.Add(newUser);
     await db.SaveChangesAsync();
-    newUser.PasswordHash = null;
+
+    newUser.Password = string.Empty;
+    newUser.PasswordHash = string.Empty;
     
-    return Results.Created($"/api/tasks/{newUser.Id}", newUser);
+    return Results.Created($"/api/users/{newUser.Id}", newUser);
 });
 
 app.Run();
