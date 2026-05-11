@@ -246,7 +246,7 @@ namespace DuckLog
                 return;
             }
 
-            Toast.MakeText(this, $"Task '{task.Name}' supprimée", ToastLength.Short).Show();
+            Toast.MakeText(this, $"Task '{task.Name}' has been deleted", ToastLength.Short).Show();
 
             await LoadModuleDataAsync();
         }
