@@ -8,7 +8,7 @@ namespace DuckLog.Models;
 /// </summary>
 public abstract class IModule
 {
-    private static int _next_id = 1;
+    private static int _nextId = 1;
 
     /// <summary>
     /// Gets the module identifier.
@@ -33,19 +33,27 @@ public abstract class IModule
     /// <summary>
     /// Gets the total number of tasks in the module.
     /// </summary>
-    public int TotalTasks => GetTasks().Count;
+    public int TotalTasks
+    {
+        get;
+        set;
+    }
 
     /// <summary>
     /// Gets the number of completed tasks in the module.
     /// </summary>
-    public int CompletedTasks => GetTasks().Count(task => task.Status == TaskStatus.Done);
+    public int CompletedTasks
+    {
+        get;
+        set;
+    }
 
     /// <summary>
     /// Initializes a new module instance with an auto-generated identifier.
     /// </summary>
     public IModule()
     {
-        Id = _next_id++;
+        Id = _nextId++;
     }
 
     /// <summary>

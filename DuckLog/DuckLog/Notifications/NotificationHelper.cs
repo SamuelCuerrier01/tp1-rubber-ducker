@@ -1,8 +1,10 @@
+using System.Net.Http.Json;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
 using DuckLog.Models;
+using Task = System.Threading.Tasks.Task;
 using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog.Notifications
@@ -22,10 +24,10 @@ namespace DuckLog.Notifications
         /// </summary>
         /// <param name="context">Contexte Android.</param>
         [System.Runtime.Versioning.SupportedOSPlatform("android26.0")]
-        public static void CreateNotificationChannel(Context context)
+        public static Task CreateNotificationChannel (Context context)
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.O)
-                return;
+                return null;
 
             var channel = new NotificationChannel(ChannelId, ChannelName, NotificationImportance.Default)
             {
@@ -34,6 +36,8 @@ namespace DuckLog.Notifications
 
             var manager = (NotificationManager)context.GetSystemService(Context.NotificationService)!;
             manager.CreateNotificationChannel(channel);
+            
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -83,30 +87,49 @@ namespace DuckLog.Notifications
         /// Ignore les tâches déjà complétées.
         /// </summary>
         /// <param name="context">Contexte Android.</param>
-        public static void CheckAndNotifyAll(Context context)
+        public async static void CheckAndNotifyAll(Context context)
         {
+            Console.WriteLine("Ici check");
+
             DateTime now = DateTime.Now;
             
             DateTime inADay = now.AddHours(24);
+            using var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
+            
+            var options = new System.Text.Json.JsonSerializerOptions 
+            { 
+                PropertyNameCaseInsensitive = true,
+                Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+            };
+            
+            Console.WriteLine("Ici avant tasks ");
+
+            var json = await httpClient.GetStringAsync("/api/tasks");
+            Console.WriteLine("RAW JSON:");
+            Console.WriteLine(json);
+
+            var tasks = System.Text.Json.JsonSerializer.Deserialize<List<Models.Task>>(json, options);            if (tasks == null) return;
             
             int notifId = 1000;
-            foreach (var module in FakeModuleDatabase.MyModules)
-            {
-                foreach (var task in module.GetTasks())
-                {
-                    if (task.Status == TaskStatus.Done)
-                    {
-                        continue;
+            
+            Console.WriteLine("Ici apres tasks ");
 
-                    }
-                    if (task.EndDate < now)
-                    {
-                        SendOverdueNotification(context, task, notifId++);
-                    }
-                    else if (task.EndDate <= inADay)
-                    {
-                        SendDueSoonNotification(context, task, notifId++);
-                    }
+            foreach (var task in tasks)
+            {
+                Console.WriteLine("Ici:       " + task.Name);
+                if (task.Status == TaskStatus.Done)
+                {
+                    continue;
+
+                }
+                if (task.EndDate < now)
+                {
+                    SendOverdueNotification(context, task, notifId++);
+                }
+                else if (task.EndDate <= inADay)
+                {
+                    SendDueSoonNotification(context, task, notifId++);
                 }
             }
         }

@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using DuckLog.Models;
 
 namespace DuckLog
@@ -9,13 +10,23 @@ namespace DuckLog
     [Activity(Label = "Add Module Activity")]
     public class AddModuleActivity : Activity
     {
+        private static readonly HttpClient HttpClient = new HttpClient(new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.Zero, 
+            ConnectTimeout = TimeSpan.FromSeconds(10) 
+        })
+        {
+            BaseAddress = new Uri(Constants.BaseApiUrl) 
+        };
         /// <summary>
         /// Méthode appelée lors de la création de l'activité.
         /// Initialise les champs de saisie, les boutons et leurs événements.
         /// </summary>
         /// <param name="savedInstanceState">État précédent de l'activité, si disponible.</param>
-        protected override void OnCreate(Android.OS.Bundle? savedInstanceState)
+        protected override void OnCreate(Bundle? savedInstanceState)
         {
+            HttpClient.DefaultRequestHeaders.ConnectionClose = true;
+            
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
 
@@ -36,11 +47,10 @@ namespace DuckLog
 
             if (btnCreate != null)
             {
-                btnCreate.Click += (s, e) =>
+                btnCreate.Click += async (s, e) =>
                 {
                     string newName = editName?.Text ?? "";
                     string newDesc = editDesc?.Text ?? "";
-                    int newId = Data.Data.GetIdModule;
 
                     if (string.IsNullOrWhiteSpace(newName))
                     {
@@ -48,11 +58,28 @@ namespace DuckLog
                         return;
                     }
 
+                    Module newModule = new Module(newName, newDesc);
+                    
+                    try 
+                    {
+                        var response = await HttpClient.PostAsJsonAsync("/api/modules", newModule);
 
-                    ModuleDemo newModule = new ModuleDemo(newName, newDesc);
-                    FakeModuleDatabase.MyModules.Add(newModule);
-
-                    Finish();
+                        if (response.IsSuccessStatusCode)
+                        {
+                            Finish();
+                        }
+                        else
+                        {
+                            string errorDetails = await response.Content.ReadAsStringAsync();
+                            Android.Util.Log.Error("API_ERROR", $"Status: {response.StatusCode}, Details: {errorDetails}");
+                            Toast.MakeText(this, $"Error {response.StatusCode}: Check Logcat", ToastLength.Long).Show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Android.Util.Log.Error("API_ERROR", $"Crash: {ex.Message}");
+                        Toast.MakeText(this, "Network timeout. Check Logcat.", ToastLength.Long).Show();
+                    }
                 };
             }
         }

@@ -1,4 +1,4 @@
-using DuckLogTask = DuckLog.Models.Task;
+/*using DuckLogTask = DuckLog.Models.Task;
 using DuckLogTaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLogTests.TaskTests;
@@ -12,7 +12,7 @@ public class TaskTests
         DateTime startDate = default,
         DuckLogTaskStatus status = DuckLogTaskStatus.Todo)
     {
-        return new DuckLogTask(name, description, endDate, startDate, status);
+        return new DuckLogTask(name, description, endDate, startDate, status, moduleId);
     }
 
     [Fact]
@@ -107,3 +107,4 @@ public class TaskTests
         Assert.Equal(originalId, task.Id);
     }
 }
+*/

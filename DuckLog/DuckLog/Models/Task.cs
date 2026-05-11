@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using DuckLog.Models;
 using TaskStatus = System.Threading.Tasks.TaskStatus;
+using System.Text.Json.Serialization;
 namespace DuckLog.Models;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,6 +11,9 @@ public partial class Task : ObservableObject, ITask
     private static int _next_id = 1;
     [ObservableProperty]
     private int _id;
+    
+    [ObservableProperty]
+    private int _moduleId;
 
     [ObservableProperty]
     private string _name;
@@ -24,26 +28,32 @@ public partial class Task : ObservableObject, ITask
     private DateTime _startDate;
 
     [ObservableProperty]
+    [property: JsonConverter(typeof(JsonStringEnumConverter))]
     private TaskStatus _status;
 
-    [ObservableProperty] private ObservableCollection<ITask> _subTasks = new ObservableCollection<ITask>();
+    [ObservableProperty]
+    [property: JsonIgnore]
+    private ObservableCollection<ITask> _subTasks = new ObservableCollection<ITask>();
 
-    public Task(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
+    public Task() { }
+
+    // 2. Custom constructor (without the static ID generator)
+    public Task(string name, string description, DateTime startDate, DateTime endDate, TaskStatus status, int moduleId)
     {
-        _id = _next_id++;
-        _name = name;
-        _description = description;
-        _endDate = endDate;
-        _startDate = startDate;
-        _status = status;
+        Name = name;
+        Description = description;
+        StartDate = startDate;
+        EndDate = endDate;
+        Status = status;
+        ModuleId = moduleId;
     }
 
-    public void Edit(string name, string description, DateTime endDate, DateTime startDate, TaskStatus status)
+    public void Edit(string name, string description, DateTime startDate, DateTime endDate, TaskStatus status)
     {
-        _name = name;
-        _description = description;
-        _endDate = endDate;
-        _startDate = startDate;
-        _status = status;
+        Name = name;
+        Description = description;
+        StartDate = startDate;
+        EndDate = endDate;
+        Status = status;
     }
 }
