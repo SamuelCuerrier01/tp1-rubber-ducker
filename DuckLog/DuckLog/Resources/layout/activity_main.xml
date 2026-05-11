@@ -3,6 +3,11 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/primary_yellow"
+            android:elevation="4dp"/>
     <Space
             android:layout_width="match_parent"
             android:layout_height="205dp"/>

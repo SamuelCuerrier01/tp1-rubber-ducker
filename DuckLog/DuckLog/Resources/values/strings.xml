@@ -30,6 +30,9 @@
     <string name="email_title">Email:</string>
     <string name="connection_button">Connect</string>
     <string name="mainTitle">Ducklog</string>
-    <string name="btnLogin">Se Connecter</string>
-    <string name="btnRegister">Créer un compte</string>
+    <string name="btnLogin">Connect</string>
+    <string name="btnRegister">Create Account</string>
+    <string name="name_title">Name:</string>
+    <string name="title_register">Register</string>
+    <string name="register_button">Register</string>
 </resources>

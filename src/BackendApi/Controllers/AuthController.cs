@@ -1,5 +1,6 @@
 ﻿using BackendApi.Data;
 using BackendApi.DTOs;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,8 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        var email = (loginRequest.Email ?? string.Empty).Trim();
-        var password = (loginRequest.Password ?? string.Empty).Trim();
+        var email = (loginRequest.Email).Trim();
+        var password = (loginRequest.Password).Trim();
 
         Console.WriteLine($"Login attempt for: {email}");
         
@@ -28,7 +29,7 @@ public class AuthController : ControllerBase
             .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         
-        if (user == null || user.PasswordHash.Trim() != password)
+        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             return Unauthorized(new { message = "Email ou mot de passe incorrect" });
 
         return Ok(user); 

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DuckLog.Models;
 
@@ -16,11 +17,13 @@ public class User
     [Column("email")]
     public string Email { get; set; } = string.Empty;
 
-    [Column("password_hash")]
-    public string PasswordHash { get; set; } = string.Empty;
-    
     [NotMapped]
+    [JsonPropertyName("Password")] 
     public string Password { get; set; } = string.Empty;
+
+    [Column("password_hash")]
+    [JsonPropertyName("PasswordHash")]
+    public string PasswordHash { get; set; } = string.Empty;
 
     [NotMapped]
     public static User? CurrentUser { get; set; }

@@ -20,6 +20,11 @@
           <theme>@android:style/Theme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/DuckLog/Resources/layout/activity_add_user.xml">
+        <config>
+          <theme>@android:style/Theme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/DuckLog/Resources/layout/activity_connection.xml">
         <config>
           <theme>@android:style/Theme</theme>
@@ -70,8 +75,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea0dc647-85e1-4c6f-a184-a9740986a814" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DuckLog/AddUserActivity.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_add_user.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DuckLog/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/BackendApi/BackendApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/BackendApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/DuckLog.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/DuckLog.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/MainActivity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/MainActivity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Resources/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckLog/Resources/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckLog/Resources/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/BackendApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/BackendApi/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,6 +168,13 @@
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -161,7 +184,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DuckLog/AddModuleActivity.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DuckLog/AddModuleActivity.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/AddTaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/ConnectionActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/EditTaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -169,7 +192,6 @@
     <setting file="file://$PROJECT_DIR$/DuckLog/ModuleActvity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/DuckLog/TaskActivity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../src/BackendApi/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/DTOs/LoginRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Data/AppDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../src/BackendApi/Migrations/20260507183847_CreateUserTable.cs" root0="FORCE_HIGHLIGHTING" />
@@ -188,7 +210,7 @@
 }</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -243,7 +265,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.BackendApi: http">
+  <component name="RunManager" selected="Android.DuckLog">
     <configuration name="DuckLogTests" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -338,6 +360,13 @@
       <workItem from="1778438587827" duration="255000" />
       <workItem from="1778438876605" duration="431000" />
       <workItem from="1778439343583" duration="3370000" />
+      <workItem from="1778499469051" duration="377000" />
+      <workItem from="1778499867036" duration="2730000" />
+      <workItem from="1778502620077" duration="26000" />
+      <workItem from="1778502742277" duration="160000" />
+      <workItem from="1778502935741" duration="217000" />
+      <workItem from="1778503179781" duration="50000" />
+      <workItem from="1778503274118" duration="6334000" />
     </task>
     <task id="LOCAL-00001" summary="Docker Initial Commit">
       <option name="closed" value="true" />

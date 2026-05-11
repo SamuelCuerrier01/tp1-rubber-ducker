@@ -29,6 +29,7 @@
 		<Compile Remove="AddTaskActivity.cs" />
 		<Compile Remove="EditTaskActivity.cs" />
 		<Compile Remove="TaskActivity.cs" />
+		<Compile Remove="AddUserActivity.cs" />
 		<Compile Remove="ConnectionActivity.cs" />
 		<Compile Remove="Notifications/AlarmScheduler.cs" />
 		<Compile Remove="Notifications/DeadlineCheckReceiver.cs" />

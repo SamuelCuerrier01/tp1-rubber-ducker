@@ -35,7 +35,11 @@ namespace DuckLog
 
             if (btnRegister != null)
             {
-                // todo add the register logic
+                btnRegister.Click += (sender, e) =>
+                {
+                    Intent intent = new Intent(this, typeof(AddUserActivity));
+                    StartActivity(intent);
+                };
             }
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Allow physical devices on the same network to reach the API.
-builder.WebHost.UseUrls("http://0.0.0.0:5277");
+builder.WebHost.UseUrls("http://0.0.0.0:5050");
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -54,6 +54,16 @@ app.MapPut("/api/tasks/{id}", async (int id, BackendApi.Models.Task updatedTask,
 
     await db.SaveChangesAsync();
     return Results.NoContent();
+});
+
+app.MapPost("/api/users", async (BackendApi.Models.User newUser, AppDbContext db) =>
+{
+    newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
+    db.Users.Add(newUser);
+    await db.SaveChangesAsync();
+    newUser.PasswordHash = null;
+    
+    return Results.Created($"/api/tasks/{newUser.Id}", newUser);
 });
 
 app.Run();
