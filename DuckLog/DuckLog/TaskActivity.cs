@@ -255,14 +255,14 @@ namespace DuckLog
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Delete Task");
-            builder.SetMessage($"Tu veux supprimer '{task.Name}' ?");
+            builder.SetMessage($"Are you sure you want to delete task '{task.Name}' ?");
 
-            builder.SetPositiveButton("Oui", async (_, __) =>
+            builder.SetPositiveButton("Yes", async (_, __) =>
             {
                 await DeleteTask(task);
             });
 
-            builder.SetNegativeButton("Non", (_, __) => { });
+            builder.SetNegativeButton("No", (_, __) => { });
 
             builder.Show();
         }

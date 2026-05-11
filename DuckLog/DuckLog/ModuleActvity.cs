@@ -203,9 +203,9 @@ namespace DuckLog
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Delete Module");
-            builder.SetMessage($"Est-tu sûr de vouloir supprimer le module '{module.Name}'?");
+            builder.SetMessage($"Are you sure you want to delete your module '{module.Name}'?");
             
-            builder.SetPositiveButton("Oui", async (_, __) =>
+            builder.SetPositiveButton("Yes", async (_, __) =>
             {
                 Console.WriteLine("Deleting module id = " + module.Id);
 
@@ -231,10 +231,10 @@ namespace DuckLog
                     .SetListener(new RemoveViewAction(container, moduleCard))
                     .Start();
 
-                Toast.MakeText(this, $"Module '{module.Name}' Supprimé", ToastLength.Short).Show();
+                Toast.MakeText(this, $"Module '{module.Name}' has been deleted", ToastLength.Short).Show();
             });
             
-            builder.SetNegativeButton("Non", (_, __) =>
+            builder.SetNegativeButton("No", (_, __) =>
             {
                 // Remettre le module à sa position initiale
                 FrameLayout frameLayout = moduleCard as FrameLayout;

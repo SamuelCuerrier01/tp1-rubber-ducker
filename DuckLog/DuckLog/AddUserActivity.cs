@@ -48,7 +48,7 @@ namespace DuckLog
                     if (string.IsNullOrWhiteSpace(newName) || string.IsNullOrWhiteSpace(newPassword) ||
                         string.IsNullOrWhiteSpace(newEmail))
                     {
-                        Toast.MakeText(this, "Fill all fields!", ToastLength.Short).Show();
+                        Toast.MakeText(this, "Please fill all the fields", ToastLength.Short).Show();
                         return;
                     }
                     User user = new User();

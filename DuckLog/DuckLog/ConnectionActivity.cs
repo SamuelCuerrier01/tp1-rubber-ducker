@@ -39,7 +39,7 @@ class ConnectionActivity : Activity
 
                 if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 {
-                    Toast.MakeText(this, "Veuillez remplir tous les champs", ToastLength.Short)?.Show();
+                    Toast.MakeText(this, "Please fill all the fields", ToastLength.Short)?.Show();
                     return;
                 }
 
@@ -51,12 +51,12 @@ class ConnectionActivity : Activity
                     if (user != null)
                     {
                         User.CurrentUser = user;
-                        Toast.MakeText(this, $"Succès : {user.Name}", ToastLength.Short)?.Show();
+                        Toast.MakeText(this, $"Success : {user.Name}", ToastLength.Short)?.Show();
                         StartActivity(typeof(ModuleActvity));
                     }
                     else
                     {
-                        Toast.MakeText(this, "Email ou mot de passe incorrect", ToastLength.Long)?.Show();
+                        Toast.MakeText(this, "Email or password are incorrect", ToastLength.Long)?.Show();
                     }
                 }
                 catch (Exception ex)

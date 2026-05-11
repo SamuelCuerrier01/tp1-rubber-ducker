@@ -50,8 +50,8 @@ namespace DuckLog.Notifications
         {
             var notification = new NotificationCompat.Builder(context, ChannelId)
                 .SetSmallIcon(Android.Resource.Drawable.IcDialogInfo)
-                ?.SetContentTitle("Tâche due bientôt !")
-                ?.SetContentText($" {task.Name} est due le {task.EndDate:dd/MM/yyyy}")
+                ?.SetContentTitle("Your task will expire soon !")
+                ?.SetContentText($" {task.Name} is due {task.EndDate:dd/MM/yyyy}")
                 ?.SetPriority(NotificationCompat.PriorityDefault)
                 ?.SetAutoCancel(true)
                 ?.Build();
@@ -70,8 +70,8 @@ namespace DuckLog.Notifications
         {
             var notification = new NotificationCompat.Builder(context, ChannelId)
                 ?.SetSmallIcon(Android.Resource.Drawable.IcDialogAlert)
-                ?.SetContentTitle("Tâche en retard")
-                ?.SetContentText($"{task.Name} était due le {task.EndDate:dd/MM/yyyy}")
+                ?.SetContentTitle("Expired task")
+                ?.SetContentText($"{task.Name} was due {task.EndDate:dd/MM/yyyy}")
                 ?.SetPriority(NotificationCompat.PriorityHigh)
                 ?.SetAutoCancel(true)
                 ?.Build();
