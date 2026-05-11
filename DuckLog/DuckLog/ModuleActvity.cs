@@ -1,6 +1,10 @@
 using System.Net.Http.Json;
 using Android.Content;
 using Android.Views;
+using Android.Widget;
+using Android.Animation;
+using Android.Util;
+using DuckLog;
 using DuckLog.Models;
 using System.Text.Json;
 using Android.OS;
@@ -125,6 +129,17 @@ namespace DuckLog
             ProgressBar progressBar = moduleCard.FindViewById<ProgressBar>(Resource.Id.progress_bar_horizontal);
             TextView progressText = moduleCard.FindViewById<TextView>(Resource.Id.progressText);
             
+            // On récupère les deux éléments du FrameLayout pour pouvoir les manipuler lors du swipe
+            FrameLayout frameLayout = moduleCard as FrameLayout;
+            LinearLayout deleteBackground = null;
+            LinearLayout moduleCardContent = null;
+            
+            if (frameLayout != null && frameLayout.ChildCount >= 2)
+            {
+                deleteBackground = frameLayout.GetChildAt(0) as LinearLayout;
+                moduleCardContent = frameLayout.GetChildAt(1) as LinearLayout;
+            }
+            
             if (txtName != null) txtName.Text = module.Name;
             if (txtTotalTasks != null) txtTotalTasks.Text = $"Tasks: {module.TotalTasks}";
 
@@ -139,6 +154,24 @@ namespace DuckLog
                 progressBar.Progress = percentage;
                 progressText.Text = $"{percentage}%";
             }
+            
+            // Mettre en place le swipe pour la suppression
+            if (moduleCardContent != null && deleteBackground != null)
+            {
+                // Avoir la largeur de l'écran pour limiter la translation
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                WindowManager?.DefaultDisplay?.GetMetrics(displayMetrics);
+                int screenWidth = displayMetrics.WidthPixels;
+                
+                SwipeGestureListener swipeListener = new SwipeGestureListener(moduleCardContent, deleteBackground, screenWidth);
+                
+                swipeListener.OnSwipeToDelete += () =>
+                {
+                    ShowDeleteConfirmationDialog(module, moduleCard, container);
+                };
+                
+                moduleCard.SetOnTouchListener(new SwipeTouchListener(swipeListener));
+            }
 
             int insertIndex = container.ChildCount - 1;
             container.AddView(moduleCard, insertIndex);
@@ -149,6 +182,74 @@ namespace DuckLog
                 intent.PutExtra("moduleId", module.Id);
                 StartActivity(intent);
             };
+        }
+        
+        private void ShowDeleteConfirmationDialog(ModuleDemo module, View moduleCard, LinearLayout container)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Delete Module");
+            builder.SetMessage($"Est-tu sûr de vouloir supprimer le module '{module.Name}'?");
+            
+            builder.SetPositiveButton("Oui", (_, __) =>
+            {
+                FakeModuleDatabase.MyModules.Remove(module);
+                
+                // Animation de disparition du module
+                moduleCard.Animate()
+                    .Alpha(0f)
+                    .SetDuration(300)
+                    .SetListener(new RemoveViewAction(container, moduleCard))
+                    .Start();
+                
+                Toast.MakeText(this, $"Module '{module.Name}' Supprimé", ToastLength.Short).Show();
+            });
+            
+            builder.SetNegativeButton("Non", (_, __) =>
+            {
+                // Remettre le module à sa position initiale
+                FrameLayout frameLayout = moduleCard as FrameLayout;
+                LinearLayout moduleCardContent = null;
+                LinearLayout deleteBackground = null;
+                
+                if (frameLayout != null && frameLayout.ChildCount >= 2)
+                {
+                    deleteBackground = frameLayout.GetChildAt(0) as LinearLayout;
+                    moduleCardContent = frameLayout.GetChildAt(1) as LinearLayout;
+                }
+                
+                if (moduleCardContent != null && deleteBackground != null)
+                {
+                    moduleCardContent.Animate()
+                        .TranslationX(0)
+                        .SetDuration(200)
+                        .Start();
+                    deleteBackground.Visibility = ViewStates.Gone;
+                }
+            });
+            
+            builder.Show();
+        }
+        
+        // Classe interne, car garde encapsulation et permet d'accéder facilement au container et à la vue à supprimer.
+        // Utile seulement pour la classe ModuleActivity, pas besoin de la rendre publique.
+        private class RemoveViewAction : Java.Lang.Object, Animator.IAnimatorListener
+        {
+            private LinearLayout _container;
+            private View _view;
+            
+            public RemoveViewAction(LinearLayout container, View view)
+            {
+                _container = container;
+                _view = view;
+            }
+            
+            public void OnAnimationCancel(Animator animation) { }
+            public void OnAnimationEnd(Animator animation) 
+            { 
+                _container.RemoveView(_view);
+            }
+            public void OnAnimationRepeat(Animator animation) { }
+            public void OnAnimationStart(Animator animation) { }
         }
     }
 }
