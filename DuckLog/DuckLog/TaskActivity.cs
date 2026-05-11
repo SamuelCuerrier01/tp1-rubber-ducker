@@ -44,6 +44,15 @@ namespace DuckLog
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             
+            if (User.CurrentUser == null)
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+                StartActivity(intent);
+                Finish();
+                return;
+            }
+            
             SetContentView(Resource.Layout.activity_task);
             
             _moduleId = Intent.GetIntExtra("moduleId", 0);

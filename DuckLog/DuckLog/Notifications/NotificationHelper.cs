@@ -105,7 +105,9 @@ namespace DuckLog.Notifications
             
             Console.WriteLine("Ici avant tasks ");
 
-            var json = await httpClient.GetStringAsync("/api/tasks");
+            int userId = User.CurrentUser.Id;
+            var json = await httpClient.GetStringAsync($"/api/tasks/user?userId={userId}");
+
             Console.WriteLine("RAW JSON:");
             Console.WriteLine(json);
 

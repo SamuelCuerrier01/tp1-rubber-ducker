@@ -12,7 +12,8 @@ using DuckLog.Notifications;
 
 namespace DuckLog
 {
-    [Activity(MainLauncher = true)]
+    [Activity]
+    //[Activity(MainLauncher = true)]
     public class ModuleActvity : Activity
     {
         // Create http client for network requests
@@ -37,6 +38,16 @@ namespace DuckLog
             
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
+            
+            if (User.CurrentUser == null)
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+                StartActivity(intent);
+                Finish();
+                return;
+            }
+            
             SetContentView(Resource.Layout.activity_module);
             
             NotificationHelper.CreateNotificationChannel(this);
@@ -83,7 +94,8 @@ namespace DuckLog
             {
                 try
                 {
-                    var response = await HttpClient.GetAsync("/api/modules");
+                    int id = User.CurrentUser.Id;
+                    var response = await HttpClient.GetAsync($"/api/modules?userId={id}");
                     string rawJson = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)

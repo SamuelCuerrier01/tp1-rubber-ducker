@@ -43,6 +43,9 @@ namespace BackendApi.Migrations
                     b.Property<int>("TotalTasks")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Modules");
@@ -81,6 +84,35 @@ namespace BackendApi.Migrations
                     b.HasIndex("ModuleId");
 
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("BackendApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("password_hash");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("app_user");
                 });
 
             modelBuilder.Entity("BackendApi.Models.Task", b =>
