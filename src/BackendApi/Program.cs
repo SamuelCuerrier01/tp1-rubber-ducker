@@ -25,13 +25,20 @@ var app = builder.Build();
 //Get all modules
 app.MapGet("/api/modules", async (AppDbContext db) =>
 {
-    var modules = await db.Modules.ToListAsync();
+    var modules = await db.Modules.Include(m => m.Tasks).ToListAsync();
     foreach (var m in modules)
     {
         m.TotalTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id);
         m.CompletedTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id && t.Status == "Done");
     }
     return Results.Ok(modules);
+});
+
+//get all tasks
+app.MapGet("/api/tasks", async (AppDbContext db) =>
+{
+    var tasks = await db.Tasks.ToListAsync();
+    return Results.Ok(tasks);
 });
 
 //Create a module

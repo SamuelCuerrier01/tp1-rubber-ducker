@@ -25,7 +25,9 @@
                     android:text="@string/task_title"
                     android:textColor="@color/primary_grey"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
             <TextView
                     android:id="@+id/txtTaskStatus"
                     android:padding="20dp"

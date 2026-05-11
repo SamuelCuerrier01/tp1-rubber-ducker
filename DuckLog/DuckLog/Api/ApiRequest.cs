@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -85,17 +86,40 @@ public static class ApiRequest
             string newDesc = infos[1].Trim();
             DateTime newStart = DateTime.Parse(infos[2].Trim());
             DateTime newEnd = DateTime.Parse(infos[3].Trim());
+            
+            if (newStart < DateTime.Today)
+                newStart = DateTime.Today;
+
+            if (newEnd < DateTime.Today)
+                newEnd = DateTime.Today.AddDays(2);
+
+            if (newEnd < newStart)
+                newEnd = newStart.AddDays(2);
 
             Console.WriteLine($"Name : {newName}");
             Console.WriteLine($"Desc : {newDesc}");
             Console.WriteLine($"Start : {newStart}");
             Console.WriteLine($"End : {newEnd}");
+            
+            var newTask = new
+            {
+                Name = newName,
+                Description = newDesc,
+                StartDate = newStart,
+                EndDate = newEnd,
+                Status = TaskStatus.Todo.ToString(),
+                ModuleId = module.Id
+            };
 
-            module.AddTask(new Models.Task(newName, newDesc, newStart, newEnd, TaskStatus.Todo, module.Id));
+            using var backendClient = new HttpClient();
+            backendClient.BaseAddress = new Uri("http://10.0.2.2:5050");
+            await backendClient.PostAsJsonAsync("/api/tasks", newTask);
+
         }
         catch (Exception ex)
         {
             Console.WriteLine($"La tache n'a pas pu être générée: {ex.Message}");
+            Console.WriteLine($"Stack: {ex.StackTrace}");
             throw;
         }
     }

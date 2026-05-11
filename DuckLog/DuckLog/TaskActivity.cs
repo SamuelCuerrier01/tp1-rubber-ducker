@@ -4,7 +4,8 @@ using DuckLog.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
 using DuckLog.Api;
-using Task = System.Threading.Tasks.Task;
+using Task = DuckLog.Models.Task;
+using TaskStatus = DuckLog.Models.TaskStatus;
 
 namespace DuckLog
 {
@@ -161,6 +162,20 @@ namespace DuckLog
             txtName.Text = task.Name;
             txtStatus.Text = task.Status.ToString();
             txtStart.Text = "Start : " + task.StartDate.ToString("dd/MM/yyyy");
+            
+            switch (task.Status)
+            {
+                case TaskStatus.Todo:
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_todo);
+                    break;
+                case TaskStatus.InProgress:
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_in_progress);
+                    break;
+                case TaskStatus.Done:
+                    taskCard.SetBackgroundResource(Resource.Drawable.bg_task_done);
+                    break;
+            }
+            
             txtEnd.Text = "End : " + task.EndDate.ToString("dd/MM/yyyy");
 
             int insertIndex = container.ChildCount - 1;

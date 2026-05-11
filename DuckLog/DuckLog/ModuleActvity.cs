@@ -3,6 +3,8 @@ using Android.Content;
 using Android.Views;
 using DuckLog.Models;
 using System.Text.Json;
+using Android.OS;
+using DuckLog.Notifications;
 
 namespace DuckLog
 {
@@ -32,6 +34,16 @@ namespace DuckLog
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_module);
+            
+            NotificationHelper.CreateNotificationChannel(this);
+            AlarmScheduler.Schedule(this);
+            
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
+            {
+                RequestPermissions(new string[] { Android.Manifest.Permission.PostNotifications }, 0);
+            }
+            
+            NotificationHelper.CheckAndNotifyAll(this);
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
             RelativeLayout btnAddModuleArea = FindViewById<RelativeLayout>(Resource.Id.btnAddModuleArea);

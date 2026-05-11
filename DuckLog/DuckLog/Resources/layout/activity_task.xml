@@ -36,34 +36,42 @@
                 android:background="@null"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/generate_btn" android:layout_marginEnd="0dp"/>
+                android:src="@drawable/generate_btn"
+                android:layout_marginEnd="0dp"/>
     </RelativeLayout>
 
-    <LinearLayout
-            android:id="@+id/taskListContainer"
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <RelativeLayout
-                android:id="@+id/btnAddTaskArea"
+        <LinearLayout
+                android:id="@+id/taskListContainer"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_module_add_area_rounded_border"
-                android:clickable="true"
-                android:focusable="true">
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical">
 
-            <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:contentDescription="add new task"
-                    android:layout_centerInParent="true"
-                    android:src="@android:drawable/ic_input_add"
-                    android:tint="@color/primary_red" />
+            <RelativeLayout
+                    android:id="@+id/btnAddTaskArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_module_add_area_rounded_border"
+                    android:clickable="true"
+                    android:focusable="true">
 
-        </RelativeLayout>
+                <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:contentDescription="add new task"
+                        android:layout_centerInParent="true"
+                        android:src="@android:drawable/ic_input_add"
+                        android:tint="@color/primary_red" />
 
-    </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

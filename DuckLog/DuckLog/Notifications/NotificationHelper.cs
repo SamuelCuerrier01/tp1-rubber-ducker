@@ -96,25 +96,32 @@ namespace DuckLog.Notifications
             using var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(Constants.BaseApiUrl);
             
-            var modules = await httpClient.GetFromJsonAsync<List<Module>>("/api/modules");
+            var options = new System.Text.Json.JsonSerializerOptions 
+            { 
+                PropertyNameCaseInsensitive = true,
+                Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+            };
+            
+            var tasks = await httpClient.GetFromJsonAsync<List<Models.Task>>("/api/tasks", options);
+            if (tasks == null) return;
+            
             int notifId = 1000;
-            foreach (var module in modules)
-            {
-                foreach (var task in module.GetTasks())
-                {
-                    if (task.Status == TaskStatus.Done)
-                    {
-                        continue;
 
-                    }
-                    if (task.EndDate < now)
-                    {
-                        SendOverdueNotification(context, task, notifId++);
-                    }
-                    else if (task.EndDate <= inADay)
-                    {
-                        SendDueSoonNotification(context, task, notifId++);
-                    }
+            foreach (var task in tasks)
+            {
+                Console.WriteLine("Ici:       " + task.Name);
+                if (task.Status == TaskStatus.Done)
+                {
+                    continue;
+
+                }
+                if (task.EndDate < now)
+                {
+                    SendOverdueNotification(context, task, notifId++);
+                }
+                else if (task.EndDate <= inADay)
+                {
+                    SendDueSoonNotification(context, task, notifId++);
                 }
             }
         }
