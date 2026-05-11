@@ -89,7 +89,8 @@ namespace DuckLog.Notifications
         /// <param name="context">Contexte Android.</param>
         public async static void CheckAndNotifyAll(Context context)
         {
-            
+            Console.WriteLine("Ici check");
+
             DateTime now = DateTime.Now;
             
             DateTime inADay = now.AddHours(24);
@@ -102,10 +103,17 @@ namespace DuckLog.Notifications
                 Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
             };
             
-            var tasks = await httpClient.GetFromJsonAsync<List<Models.Task>>("/api/tasks", options);
-            if (tasks == null) return;
+            Console.WriteLine("Ici avant tasks ");
+
+            var json = await httpClient.GetStringAsync("/api/tasks");
+            Console.WriteLine("RAW JSON:");
+            Console.WriteLine(json);
+
+            var tasks = System.Text.Json.JsonSerializer.Deserialize<List<Models.Task>>(json, options);            if (tasks == null) return;
             
             int notifId = 1000;
+            
+            Console.WriteLine("Ici apres tasks ");
 
             foreach (var task in tasks)
             {
