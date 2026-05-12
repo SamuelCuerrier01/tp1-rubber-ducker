@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+actor Client
+
+rectangle "Systeme de taches" {
+usecase "Ajouter un module" as UC12 
+usecase "Organiser des taches dans module" as UC1
+usecase "Ajouter une tache" as UC2
+usecase "Suprimmer une tache" as UC3
+usecase "Terminer une tache" as UC4
+usecase "Obtenir une progression de module" as UC5
+usecase "Recevoir suggestions par IA" as UC6
+usecase "Obtenir streaks pour taches faite chaque jour" as UC7
+usecase "Obtenir des rappels" as UC8
+}
+rectangle "Systeme de profil" {
+usecase "Sinscrire" as UC9
+usecase "Se connecter" as UC10
+}
+rectangle "Interface" {
+usecase "Changer la langue" as UC11
+}
+Client --> UC1
+Client --> UC2
+Client --> UC3
+Client --> UC4
+Client --> UC5
+Client --> UC6
+Client --> UC7
+Client --> UC8
+Client --> UC9
+Client --> UC10
+Client --> UC11
+Client --> UC12
+UC2 .> UC1 : <<include>>
+UC1 .> UC5 : <<include>>
+UC1 .> UC6 : <<include>>
+@enduml

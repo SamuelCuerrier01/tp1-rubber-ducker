@@ -1,0 +1,13 @@
+@startuml name sequenceBD
+actor Client
+boundary "Interface Ducklog" as UI
+control "Backend Api" as SR
+database "BD" as DB
+Client -> UI : ajout/supression de module/tache
+UI -> SR : demande de requête à la BD
+SR -> DB : verifierPossibilite()
+DB --> SR : possible
+SR -> DB : effectuerChangement()
+SR --> UI : confirmation
+UI --> Client : mise à jour interface utilisateur
+@enduml

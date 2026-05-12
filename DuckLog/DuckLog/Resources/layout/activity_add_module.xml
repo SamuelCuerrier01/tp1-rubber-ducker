@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/primary_yellow"
+            android:elevation="4dp">
+
+        <ImageButton
+                android:id="@+id/btnReturn"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:contentDescription="to return to home menu"
+                android:layout_alignParentStart="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="@color/primary_grey"
+                android:src="@android:drawable/ic_menu_revert" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/new_module_header"
+                android:textColor="@color/primary_grey"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/module_name_header"
+                    android:textColor="@color/primary_grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+            <EditText
+                    android:id="@+id/editModuleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_create_module_form"
+                    android:padding="12dp"
+                    android:hint="@string/module_name_hint"
+                    android:textColorHint="#999999"
+                    android:textColor="@color/primary_grey"
+                    android:inputType="textCapWords" /> 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/module_description_header"
+                    android:textColor="@color/primary_grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+            <EditText
+                    android:id="@+id/editModuleDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/bg_create_module_form"
+                    android:padding="12dp"
+                    android:gravity="top|start"
+                    android:hint="@string/module_description_hint"
+                    android:textColorHint="#999999"
+                    android:textColor="@color/primary_grey"
+                    android:inputType="textMultiLine" /> 
+            <Button
+                    android:id="@+id/btnCreateModule"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/create_module_button"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="@color/primary_orange" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

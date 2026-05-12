@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <JavaSdkDirectory Condition="$([MSBuild]::IsOSPlatform('OSX'))">/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home</JavaSdkDirectory>
+    <AndroidSdkDirectory Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(HOME)/Library/Developer/Xamarin/android-sdk-macosx</AndroidSdkDirectory>
+
+    <JavaSdkDirectory Condition="$([MSBuild]::IsOSPlatform('Windows'))">C:\Program Files\Eclipse Adoptium\jdk-21.0.2.13-hotspot</JavaSdkDirectory>
+    <AndroidSdkDirectory Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(LocalAppData)\Android\Sdk</AndroidSdkDirectory>
+    
+    <JavaSdkDirectory Condition="$([MSBuild]::IsOSPlatform('Linux'))">/usr/lib/jvm/java-21-openjdk-amd64</JavaSdkDirectory>
+    <AndroidSdkDirectory Condition="$([MSBuild]::IsOSPlatform('Linux'))">$(HOME)/Android/Sdk</AndroidSdkDirectory>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">DuckLog</string>
+    
+    <!--Modules Strings-->
+    <string name="module_page_header">My Modules</string>
+    <string name="new_module_header">Create New Module</string>
+    <string name="progress_bar_percentage">TO DO</string>
+    <string name="module_name_header">Module name</string>
+    <string name="module_name_hint">Studies</string>
+    <string name="module_description_header">Description</string>
+    <string name="module_description_hint">Module for my studies in Programming</string>
+    <string name="create_module_button">CREATE MODULE</string>
+    <string name="task_page_header">My tasks</string>
+    <string name="create_task_button">Create task</string>
+    <string name="new_task_header">New Task</string>
+    <string name="task_name_header">task name</string>
+    <string name="task_name_hint">study Laravel</string>
+    <string name="task_description_header">task description</string>
+    <string name="task_description_hint">study Laravel in depth to make Mr. Ariel happy</string>
+    <string name="task_title">Task Title</string>
+    <string name="txt_task_status">"Status : "</string>
+    <string name="txt_task_start">"Start : "</string>
+    <string name="txt_task_end">"End : "</string>
+    <string name="edit_task_header">Edit task</string>
+    <string name="edit_task_button">Edit task</string>
+    <string name="txt_task_start_date">Start date</string>
+    <string name="txt_task_end_date">End date</string>
+    <string name="password_title">Password</string>
+    <string name="email_title">Email</string>
+    <string name="name_title">Name</string>
+    <string name="title_register">Registration</string>
+    <string name="mainTitle">DuckLog</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Register</string>
+    <string name="register_button">Register</string>
+    <string name="title_connection">Connection</string>
+    <string name="connection_button">Login</string>
+</resources>
