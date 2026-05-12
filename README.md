@@ -1,3 +1,4 @@
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/wlHZ1MjT)
 
 
@@ -36,3 +37,23 @@ Le rappel des dates limites de ceux-ci.
 L’analyse de progression en temps réel.
 
 En se basant sur toutes ces fonctionnalités, l'application a pour objectif de fournir un rapport de l’évolution, du changement ou de la progression de l’utilisateur dans le domaine spécifique choisi.
+
+# Dépendances a installer
+```
+dotnet 10
+dotnet MAUI
+SDK 17
+JDK 21
+Docker
+Émulateur Android sur IDE au choix
+```
+
+
+# Setup
+```bash
+cd doc/DockerSetup/
+./setup.sh
+cd ../../src/BackendApi/
+dotnet run
+```
+par la suite, partir le projet dans ```Ducklog/Ducklog``` a partir d'un IDE qui supporte un émulateur android
