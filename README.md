@@ -38,7 +38,7 @@ L’analyse de progression en temps réel.
 
 En se basant sur toutes ces fonctionnalités, l'application a pour objectif de fournir un rapport de l’évolution, du changement ou de la progression de l’utilisateur dans le domaine spécifique choisi.
 
-# Dépendances a installer
+# Dépendances à installer
 ```
 dotnet 10
 dotnet MAUI
@@ -56,4 +56,4 @@ cd doc/DockerSetup/
 cd ../../src/BackendApi/
 dotnet run
 ```
-par la suite, partir le projet dans ```Ducklog/Ducklog``` a partir d'un IDE qui supporte un émulateur android
+par la suite, partir le projet dans ```Ducklog/Ducklog``` à partir d'un IDE qui supporte un émulateur android.
