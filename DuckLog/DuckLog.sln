@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckLog", "DuckLog\DuckLog.csproj", "{AF68B827-D0EA-4730-9736-6480636BAC5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckLogTests", "DuckLogTests\DuckLogTests.csproj", "{DAD9D7D6-DA0B-4C5C-A8AF-77642EEA9E66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendApi", "..\src\BackendApi\BackendApi.csproj", "{A8C38993-0BB9-40AF-B404-D4A5952A15C1}"
 EndProject
 Global
