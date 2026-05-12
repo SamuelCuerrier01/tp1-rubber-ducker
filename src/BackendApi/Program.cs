@@ -19,16 +19,22 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 var app = builder.Build();
 
 //Get all modules
-app.MapGet("/api/modules", async (AppDbContext db) =>
+app.MapGet("/api/modules", async (int userId, AppDbContext db) =>
 {
-    var modules = await db.Modules.Include(m => m.Tasks).ToListAsync();
+    var modules = await db.Modules
+        .Where(m => m.UserId == userId)
+        .Include(m => m.Tasks)
+        .ToListAsync();
+
     foreach (var m in modules)
     {
         m.TotalTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id);
         m.CompletedTasks = await db.Tasks.CountAsync(t => t.ModuleId == m.Id && t.Status == "Done");
     }
+
     return Results.Ok(modules);
 });
+
 
 //get all tasks
 app.MapGet("/api/tasks", async (AppDbContext db) =>
@@ -40,6 +46,9 @@ app.MapGet("/api/tasks", async (AppDbContext db) =>
 //Create a module
 app.MapPost("/api/modules", async (Module newModule, AppDbContext db) =>
 {
+    if (newModule.UserId <= 0)
+        return Results.BadRequest("UserId is required.");
+    
     db.Modules.Add(newModule);
     
     await db.SaveChangesAsync();
@@ -102,6 +111,18 @@ app.MapGet("/api/modules/{id}/tasks", async (int id, AppDbContext db) =>
     return Results.Ok(tasks);
 });
 
+//get tasks of a user
+app.MapGet("/api/tasks/user", async (int userId, AppDbContext db) =>
+{
+    var tasks = await db.Tasks
+        .Where(t => db.Modules
+            .Any(m => m.Id == t.ModuleId && m.UserId == userId))
+        .ToListAsync();
+
+    return Results.Ok(tasks);
+});
+
+
 //delete a module
 app.MapDelete("/api/modules/{id}", async (int id, AppDbContext db) =>
 {
@@ -124,6 +145,41 @@ app.MapDelete("/api/tasks/{id}", async (int id, AppDbContext db) =>
     await db.SaveChangesAsync();
 
     return Results.NoContent();
+});
+
+// Create a user (Register)
+app.MapPost("/api/users", async (BackendApi.Models.User newUser, AppDbContext db) =>
+{
+    string rawPassword = newUser.Password?.Trim();
+
+    if (string.IsNullOrWhiteSpace(rawPassword))
+        return Results.BadRequest("Password is required.");
+
+    newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(rawPassword);
+
+    db.Users.Add(newUser);
+    await db.SaveChangesAsync();
+
+    newUser.Password = string.Empty;
+    newUser.PasswordHash = string.Empty;
+
+    return Results.Created($"/api/users/{newUser.Id}", newUser);
+});
+
+// Login
+app.MapPost("/api/auth/login", async (HttpContext http, AppDbContext db) =>
+{
+    var body = await http.Request.ReadFromJsonAsync<BackendApi.Models.User>();
+    if (body == null) return Results.BadRequest("Invalid request.");
+
+    var user = await db.Users.FirstOrDefaultAsync(u => u.Email == body.Email.Trim());
+    if (user == null) return Results.Unauthorized();
+
+    bool valid = BCrypt.Net.BCrypt.Verify(body.Password.Trim(), user.PasswordHash);
+    if (!valid) return Results.Unauthorized();
+
+    user.PasswordHash = string.Empty;
+    return Results.Ok(user);
 });
 
 app.Run();

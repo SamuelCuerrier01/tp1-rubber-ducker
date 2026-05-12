@@ -44,6 +44,15 @@ namespace DuckLog
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
             
+            if (User.CurrentUser == null)
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+                StartActivity(intent);
+                Finish();
+                return;
+            }
+            
             SetContentView(Resource.Layout.activity_task);
             
             _moduleId = Intent.GetIntExtra("moduleId", 0);
@@ -237,7 +246,7 @@ namespace DuckLog
                 return;
             }
 
-            Toast.MakeText(this, $"Task '{task.Name}' supprimée", ToastLength.Short).Show();
+            Toast.MakeText(this, $"Task '{task.Name}' has been deleted", ToastLength.Short).Show();
 
             await LoadModuleDataAsync();
         }
@@ -246,14 +255,14 @@ namespace DuckLog
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Delete Task");
-            builder.SetMessage($"Tu veux supprimer '{task.Name}' ?");
+            builder.SetMessage($"Are you sure you want to delete task '{task.Name}' ?");
 
-            builder.SetPositiveButton("Oui", async (_, __) =>
+            builder.SetPositiveButton("Yes", async (_, __) =>
             {
                 await DeleteTask(task);
             });
 
-            builder.SetNegativeButton("Non", (_, __) => { });
+            builder.SetNegativeButton("No", (_, __) => { });
 
             builder.Show();
         }

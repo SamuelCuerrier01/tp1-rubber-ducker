@@ -25,4 +25,14 @@
     <string name="edit_task_button">Edit task</string>
     <string name="txt_task_start_date">Start date</string>
     <string name="txt_task_end_date">End date</string>
+    <string name="password_title">Password</string>
+    <string name="email_title">Email</string>
+    <string name="name_title">Name</string>
+    <string name="title_register">Registration</string>
+    <string name="mainTitle">DuckLog</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Register</string>
+    <string name="register_button">Register</string>
+    <string name="title_connection">Connection</string>
+    <string name="connection_button">Login</string>
 </resources>

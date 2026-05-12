@@ -50,8 +50,8 @@ namespace DuckLog.Notifications
         {
             var notification = new NotificationCompat.Builder(context, ChannelId)
                 .SetSmallIcon(Android.Resource.Drawable.IcDialogInfo)
-                ?.SetContentTitle("Tâche due bientôt !")
-                ?.SetContentText($" {task.Name} est due le {task.EndDate:dd/MM/yyyy}")
+                ?.SetContentTitle("Your task will expire soon !")
+                ?.SetContentText($" {task.Name} is due {task.EndDate:dd/MM/yyyy}")
                 ?.SetPriority(NotificationCompat.PriorityDefault)
                 ?.SetAutoCancel(true)
                 ?.Build();
@@ -70,8 +70,8 @@ namespace DuckLog.Notifications
         {
             var notification = new NotificationCompat.Builder(context, ChannelId)
                 ?.SetSmallIcon(Android.Resource.Drawable.IcDialogAlert)
-                ?.SetContentTitle("Tâche en retard")
-                ?.SetContentText($"{task.Name} était due le {task.EndDate:dd/MM/yyyy}")
+                ?.SetContentTitle("Expired task")
+                ?.SetContentText($"{task.Name} was due {task.EndDate:dd/MM/yyyy}")
                 ?.SetPriority(NotificationCompat.PriorityHigh)
                 ?.SetAutoCancel(true)
                 ?.Build();
@@ -89,6 +89,9 @@ namespace DuckLog.Notifications
         /// <param name="context">Contexte Android.</param>
         public async static void CheckAndNotifyAll(Context context)
         {
+            if (User.CurrentUser == null)
+                return;
+
             Console.WriteLine("Ici check");
 
             DateTime now = DateTime.Now;
@@ -105,7 +108,9 @@ namespace DuckLog.Notifications
             
             Console.WriteLine("Ici avant tasks ");
 
-            var json = await httpClient.GetStringAsync("/api/tasks");
+            int userId = User.CurrentUser.Id;
+            var json = await httpClient.GetStringAsync($"/api/tasks/user?userId={userId}");
+
             Console.WriteLine("RAW JSON:");
             Console.WriteLine(json);
 

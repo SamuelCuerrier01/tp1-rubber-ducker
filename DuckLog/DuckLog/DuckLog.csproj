@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
+        <TargetFrameworks>net10.0-android</TargetFrameworks>
         <OutputType Condition="'$(TargetFramework)' != 'net10.0'">Exe</OutputType>
         <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
         <Nullable>enable</Nullable>

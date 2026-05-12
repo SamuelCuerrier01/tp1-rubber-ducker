@@ -38,7 +38,7 @@ namespace DuckLog
                 case MotionEventActions.Move:
                     float deltaX = e.GetX() - _initialX;
 
-                    // Si on dépasse le seuil → c'est un swipe, on bloque le clic
+                    // Si on dépasse le seuil - c'est un swipe, on bloque le clic
                     if (Math.Abs(deltaX) > SwipeThreshold)
                     {
                         _isSwipingLeft = deltaX < 0;
@@ -51,16 +51,16 @@ namespace DuckLog
                         return true; // IMPORTANT : bloque le clic
                     }
 
-                    return false; // petit mouvement → clic possible
+                    return false; // petit mouvement - clic possible
 
                 case MotionEventActions.Up:
                 case MotionEventActions.Cancel:
 
-                    // Si ce n'était PAS un swipe → laisser passer le clic
+                    // Si ce n'était PAS un swipe - laisser passer le clic
                     if (!_isSwipingLeft)
                         return false;
 
-                    // Si c'était un swipe → gérer la suppression
+                    // Si c'était un swipe - gérer la suppression
                     float finalX = _moduleCardContent.TranslationX;
 
                     if (finalX < -_screenWidth * 0.5f)

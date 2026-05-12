@@ -12,7 +12,8 @@ using DuckLog.Notifications;
 
 namespace DuckLog
 {
-    [Activity(MainLauncher = true)]
+    [Activity]
+    //[Activity(MainLauncher = true)]
     public class ModuleActvity : Activity
     {
         // Create http client for network requests
@@ -37,6 +38,16 @@ namespace DuckLog
             
             ActionBar?.Hide();
             base.OnCreate(savedInstanceState);
+            
+            if (User.CurrentUser == null)
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTask);
+                StartActivity(intent);
+                Finish();
+                return;
+            }
+            
             SetContentView(Resource.Layout.activity_module);
             
             NotificationHelper.CreateNotificationChannel(this);
@@ -47,7 +58,10 @@ namespace DuckLog
                 RequestPermissions(new string[] { Android.Manifest.Permission.PostNotifications }, 0);
             }
             
-            NotificationHelper.CheckAndNotifyAll(this);
+            if (User.CurrentUser != null)
+            {
+                NotificationHelper.CheckAndNotifyAll(this);
+            }
 
             ImageButton btnReturn = FindViewById<ImageButton>(Resource.Id.btnReturn);
             RelativeLayout btnAddModuleArea = FindViewById<RelativeLayout>(Resource.Id.btnAddModuleArea);
@@ -83,7 +97,8 @@ namespace DuckLog
             {
                 try
                 {
-                    var response = await HttpClient.GetAsync("/api/modules");
+                    int id = User.CurrentUser.Id;
+                    var response = await HttpClient.GetAsync($"/api/modules?userId={id}");
                     string rawJson = await response.Content.ReadAsStringAsync();
 
                     if (response.IsSuccessStatusCode)
@@ -188,9 +203,9 @@ namespace DuckLog
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Delete Module");
-            builder.SetMessage($"Est-tu sûr de vouloir supprimer le module '{module.Name}'?");
+            builder.SetMessage($"Are you sure you want to delete your module '{module.Name}'?");
             
-            builder.SetPositiveButton("Oui", async (_, __) =>
+            builder.SetPositiveButton("Yes", async (_, __) =>
             {
                 Console.WriteLine("Deleting module id = " + module.Id);
 
@@ -216,10 +231,10 @@ namespace DuckLog
                     .SetListener(new RemoveViewAction(container, moduleCard))
                     .Start();
 
-                Toast.MakeText(this, $"Module '{module.Name}' Supprimé", ToastLength.Short).Show();
+                Toast.MakeText(this, $"Module '{module.Name}' has been deleted", ToastLength.Short).Show();
             });
             
-            builder.SetNegativeButton("Non", (_, __) =>
+            builder.SetNegativeButton("No", (_, __) =>
             {
                 // Remettre le module à sa position initiale
                 FrameLayout frameLayout = moduleCard as FrameLayout;
